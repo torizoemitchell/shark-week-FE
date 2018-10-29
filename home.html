@@ -11,6 +11,14 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Abel|Ubuntu" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var options = {}
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems, options);
+    });
+  </script>
 </head>
 
 <body>
@@ -26,7 +34,10 @@
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a href="">Log Out</a></li>
+    <div class="background center-align">
+      <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
+    </div>
+    <li><a class="nav-text" href="">Log Out</a></li>
 
   </ul>
 

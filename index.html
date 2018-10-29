@@ -29,7 +29,7 @@
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo brand">Tempo</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
+      <ul class="right hide-on-med-and-down nav-text">
         <li><a href="">Log In</a></li>
         <li><a href="">Sign Up</a></li>
 
@@ -41,8 +41,8 @@
     <div class="background center-align">
       <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
     </div>
-    <li><a href="">Log In</a></li>
-    <li><a href="">Sign Up</a></li>
+    <li><a class="nav-text" href="">Log In</a></li>
+    <li><a class="nav-text" href="">Sign Up</a></li>
   </ul>
 
   <div class="container">
@@ -56,26 +56,27 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="email" class="validate">
+            <input id="email" type="email" class="validate" required>
             <label for="email">Email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" class="validate">
+            <input id="password" type="password" class="validate" required>
             <label for="password">Password</label>
           </div>
         </div>
         <div class="row">
           <div class="col s12 center-align">
-            <a class="waves-effect waves-light btn-large button-color" id="login">Login</a><br>
+            <a class="waves-effect btn-large button-color">Login</a><br>
+
           </div>
         </div>
       <!-- signup form -->
         <div class="row">
           <div class="col s12 center-align">
             <span class="label label-default" id="first-time">First Time?</span><br>
-            <a class="waves-effect waves-light btn-large modal-trigger" href="#signup" id="sign-up">Sign Up</a>
+            <a class="waves-effect waves-light btn-large modal-trigger button-color" href="#signup" id="sign-up">Sign Up</a>
           </div>
         </div>
       </form>

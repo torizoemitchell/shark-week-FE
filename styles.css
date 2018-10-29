@@ -32,3 +32,78 @@ body {
 .button-color{
   background-color: midnightblue;
 }
+
+.nav-text{
+  color:midnightblue !important;
+}
+
+/* form colors */
+/* label color */
+   .input-field label {
+     color: midnightblue !important;
+     border-bottom: midnightblue !important;
+     box-shadow: midnightblue !important;
+   }
+   /* label focus color */
+   .input-field input[type=email]:focus + label {
+     color: midnightblue !important;
+     border-bottom: midnightblue !important;
+     box-shadow: midnightblue !important;
+   }
+   .input-field input[type=password]:focus + label {
+     color: midnightblue !important;
+     border-bottom: midnightblue !important;
+     box-shadow: midnightblue !important;
+   }
+   .input-field input[type=number]:focus + label {
+     color: midnightblue !important;
+     border-bottom: midnightblue !important;
+     box-shadow: midnightblue !important;
+   }
+   .input-field input[type=text]:focus + label {
+     color: midnightblue !important;
+     border-bottom: midnightblue !important;
+     box-shadow: midnightblue !important;
+   }
+   /* label underline focus color */
+   .input-field input[type=email]:focus {
+     color: midnightblue !important;
+     border-bottom: 1px solid midnightblue !important;
+     box-shadow: 0 1px 0 0 midnightblue !important;
+   }
+   .input-field input[type=password]:focus {
+     color: midnightblue !important;
+     border-bottom: 1px solid midnightblue !important;
+     box-shadow: 0 1px 0 0 midnightblue !important;
+   }
+   .input-field input[type=number]:focus {
+     color: midnightblue !important;
+     border-bottom: 1px solid midnightblue !important;
+     box-shadow: 0 1px 0 0 midnightblue !important;
+   }
+   .input-field input[type=text]:focus {
+     color: midnightblue !important;
+     border-bottom: 1px solid midnightblue !important;
+     box-shadow: 0 1px 0 0 midnightblue !important;
+   }
+   /* valid color */
+   .input-field input[type=email].valid {
+     color: midnightblue;
+     border-bottom: 1px solid midnightblue;
+     box-shadow: 0 1px 0 0 midnightblue;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: midnightblue;
+     border-bottom: midnightblue;
+     box-shadow: midnightblue;
+   }
+
+   /* switch colors */
+   .switch label input[type=checkbox]:checked+.lever {
+  background-color: orange;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: orange;
+}

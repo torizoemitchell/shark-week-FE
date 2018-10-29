@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
+
   var elems = document.querySelectorAll('.modal');
   var instances = M.Modal.init(elems);
+
   let signUpButton = document.getElementById("sign-up")
   //signUpButton.addEventListener("click", showSignUpForm)
 })
@@ -13,8 +15,10 @@ let url = '/temp_backend/'
 function showSignUpForm (event){
   signUpForm = document.getElementById("signup-form")
   logInForm = document.getElementById("login-form")
+
   //console.log(signUpForm)
   signUpForm.setAttribute("hidden", false)
+
   // logInForm.setAttribute("hidden", true)
 }
 

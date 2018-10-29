@@ -1,0 +1,15 @@
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+.brand {
+  color: white !important;
+  font-family: 'Abel', sans-serif;
+}
+
+.header {
+  background-color: cornflowerblue;
+}
+
+.moon-logo{
+  margin: 5px;
+}

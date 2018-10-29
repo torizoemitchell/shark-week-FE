@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
+  M.AutoInit();
+  // var elems = document.querySelectorAll('.modal');
+  // var instances = M.Modal.init()
 
-  var elems = document.querySelectorAll('.modal');
-  var instances = M.Modal.init(elems);
-
-  let signUpButton = document.getElementById("sign-up")
   //signUpButton.addEventListener("click", showSignUpForm)
 })
 
+let signUpButton = document.getElementById("sign-up")
 let emailInput = document.getElementById('email')
 let passwordInput = document.getElementById('password')
 let url = '/temp_backend/'
@@ -27,17 +27,17 @@ function logIn (event) {
   form.addEventListener('submit', (ev) => {
     ev.preventDefault()
     // grab all values from the form
-    // let postData = {}
-    // let formElements = ev.target.elements
-    //
-    // for (var i = 0; i < formElements.length; i++) {
-    //   let inputName = formElements[i].name
-    //   if( inputName ) {
-    //     postData[inputName] = formElements[i].value
-    //   }
-    // }
+    let postData = {}
+    let formElements = ev.target.elements
 
-    //console.log('postData', postData);
+    for (var i = 0; i < formElements.length; i++) {
+      let inputName = formElements[i].name
+      if( inputName ) {
+        postData[inputName] = formElements[i].value
+      }
+    }
+
+    console.log('postData', postData);
 
     // axios.post that data to the correct backend route
     axios.post(`${url}/users`, postData)

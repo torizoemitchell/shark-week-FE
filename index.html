@@ -75,14 +75,33 @@
         <div class="row">
           <div class="col s12 center-align">
             <span class="label label-default" id="first-time">First Time?</span><br>
-            <a class="waves-effect waves-light btn-large modal-trigger" data-target="#signup" id="sign-up">Sign Up</a>
+            <a class="waves-effect waves-light btn-large modal-trigger" href="#signup" id="sign-up">Sign Up</a>
           </div>
         </div>
         <!-- modal -->
         <div id="signup" class="modal">
           <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>signup form here</p>
+            <h4>Welcome to Tempo!</h4>
+            <p>please register here</p>
+
+            <form id="registration">
+
+            <label for="name">Name</label>
+            <input type="text" name="name" id="regName" required autofocus><br>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="regEmail" required><br>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="regPassword" required><br>
+
+            <label for="cycle_length">Cycle_length (optional)</label>
+            <input type="text" name="cycle_length" id="regCycle_length" required><br>
+
+
+            <br><br><br><br>
+            <input type="submit" value="Submit" id="submit-form" class="modal-close">
+          </form>
           </div>
           <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -95,7 +114,7 @@
 
   <!-- Compiled and minified JavaScript -->
 
-  <!-- <script src="index.js"></script> -->
+  <script src="index.js"></script>
   <!-- sidenav script -->
 
 </body>

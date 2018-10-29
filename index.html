@@ -1,1 +1,102 @@
-Testing auto-deploy
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Abel|Ubuntu" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="header">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo brand">Tempo</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="">Sass</a></li>
+        <li><a href="">Components</a></li>
+        <li><a href="">Javascript</a></li>
+        <li><a href="">Mobile</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="">Sass</a></li>
+    <li><a href="">Components</a></li>
+    <li><a href="">Javascript</a></li>
+    <li><a href="">Mobile</a></li>
+  </ul>
+
+  <div class="container" id="login">
+    <div class="row">
+      <!-- default login-form -->
+      <form class="col s8 offset-s2 login-form" id="login-form">
+        <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="100" width="100">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <a class="waves-effect waves-light btn button-color">Login</a><br>
+          </div>
+          <div class="col s6">
+            <span class="label label-default" id="first-time">First Time?</span>
+            <a class="waves-effect waves-light btn button-color" id="sign-up">Sign Up</a>
+          </div>
+        </div>
+      </form>
+      <!-- signup form -->
+      <form class="col s8 offset-s2 login-form" id="signup-form" hidden>
+        <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="100" width="100">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Name</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <a class="waves-effect waves-light btn button-color">Login</a><br>
+          </div>
+          <div class="col s6">
+            <a class="waves-effect waves-light btn button-color" id="sign-up">Sign Up</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

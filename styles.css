@@ -1,0 +1,31 @@
+body {
+  font-family: 'Ubuntu', sans-serif;
+  /* background-color: blue; */
+  background-image: url("./images/grad.jpeg");
+  background-size: cover;
+}
+.brand {
+  color: white !important;
+  font-family: 'Abel', sans-serif;
+}
+
+.header {
+  background-color: midnightblue;
+}
+
+.moon-logo{
+  display: block;
+}
+
+#first-time{
+  color: grey;
+}
+
+.login-form{
+  margin-top: 50px;
+  background-color: white;
+}
+
+.button-color{
+  background-color: midnightblue;
+}

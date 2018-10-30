@@ -8,18 +8,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 let signUpButton = document.getElementById("sign-up")
 let emailInput = document.getElementById('email')
 let passwordInput = document.getElementById('password')
-//let url = 'http://localhost:5000'
 let url = "https://shark-week-server.herokuapp.com"
 let clientUrl = "http://localhost:8080"
-// function showSignUpForm (event){
-//   signUpForm = document.getElementById("signup-form")
-//   logInForm = document.getElementById("login-form")
-//
-//   //console.log(signUpForm)
-//   signUpForm.setAttribute("hidden", false)
-//
-//   // logInForm.setAttribute("hidden", true)
-// }
 
 function register(event) {
   let form = document.getElementById('signup')

@@ -55,22 +55,38 @@ function postEntry (event) {
 }
 
 function makeCalendar (currentMonth, calendar){
-  let day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  let day = ['Sun', 'M', 'T', 'W', 'Tr', 'F', 'Sat'];
   let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  let header = document.createElement('div')
+  header.classList.add('row')
+
+  for (let name of day) {
+    let col = document.createElement('div')
+    col.classList.add('col')
+    col.classList.add('s1')
+    col.innerText = name
+    header.appendChild(col)
+  }
+  calendar.appendChild(header)
+
   for (let r = 0; r < 5; r++) {
-    var row = document.createElement('tr')
+    var row = document.createElement('div')
+    row.classList.add('row')
+    row.classList.add('row')
 
     for (let i = 1; i < 8; i++) {
-      let dayInfo = document.createElement('td')
+      let dayInfo = document.createElement('div')
       let days = i + (r * 7)
       let d = new Date(2018, currentMonth, days)
       // console.log(d);
-      dayInfo.innerText = day[d.getDay()]
-      dayInfo.innerHTML += "<br>"
+      dayInfo.classList.add('col')
+      dayInfo.classList.add('s1')
+      // dayInfo.innerText = day[d.getDay()]
+      // dayInfo.innerHTML += "<br>"
       dayInfo.innerText += d.getDate()
       dayInfo.innerHTML += "<br>"
-      dayInfo.innerText += month[d.getMonth()] + ' ' + (1900 + d.getYear())
+      // dayInfo.innerText += month[d.getMonth()] + ' ' + (1900 + d.getYear())
       dayInfo.setAttribute("id", days)
       row.appendChild(dayInfo)
       console.log(month[currentMonth])

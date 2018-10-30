@@ -88,9 +88,53 @@
       <div class="col s12 form center-align">
         <h3>Your Calendar</h3>
         <div class="container">
-          <div id='canvas'>
-            <!-- canvas here -->
+          <a class="modal-trigger" href="#editEntry" id="edit-entry">
+            <div id='canvas'>
+              <!-- canvas here -->
+            </div>
+          </a>
+          <div id="editEntry" class="modal">
+            <div class="modal-content nav-text">
+              <form class="col s12 form center-align" id="edit-form">
+                <div class="row">
+                  <div class="col s12 center-align">
+                    <h5 id='editWelcome'></h5>
+                    <h4 id="editCurrentDate"></h4>
+                  </div>
+                </div>
+                <div class="col s12 center-align">
+                  <h7>Please edit your temperature here: </h7>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 center-align">
+                    <input id="editTemp" type="float" class="validate" required autofocus>
+                  </div>
+                </div>
+                <!-- Switch -->
+                <div class="row">
+                  <div class="col s12 center-align">
+                    <label>Is Aunt Flow In Town?</label>
+                    <div class="switch">
+                      <label>No
+                    <input type="checkbox" id=editCheckbox>
+                    <span class="lever"></span>
+                    Yes
+                    </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 center-align">
+                    <a class="waves-effect waves-light btn-large button-color" id="editSubmit">Submit</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+            </div>
           </div>
+
         </div>
       </div>
     </div>

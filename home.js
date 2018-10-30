@@ -5,8 +5,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   postEntry()
 })
 let today = new Date()
-
+let url = "https://shark-week-server.herokuapp.com"
 let userName = localStorage.getItem('User Name')
+let userId = localStorage.getItem('User ID')
 console.log("name:",userName);
 let welcome = document.getElementById('welcome')
 welcome.innerText = `Good morning ${userName}! Please input your daily entry.`
@@ -26,13 +27,16 @@ function postEntry (event) {
     let date = currentDate.innerText
     let toggle = document.getElementById('checkbox').checked
     postData[temp.id] = temp.value
-    postData['date'] = date
+    postData['date'] = today
     postData['flow'] = toggle
 
     console.log('postData', postData);
     console.log('toggle value:', toggle );
+    console.log('userId', userId);
+    console.log('url', url);
+    console.log('post path:', `${url}/entries/${userId}`);
     // axios.post that data to the correct backend route
-    axios.post(`${url}/entries/${date}`, postData)
+    axios.post(`${url}/entries/${userId}`, postData)
     .then((response) => {
 
       console.log(response)

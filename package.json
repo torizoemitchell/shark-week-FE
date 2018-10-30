@@ -22,7 +22,6 @@
   },
   "git": {
     "scripts": {
-      "pre-push": "node_modules/.bin/surge --project ./ --domain shark-week.surge.sh"
     }
   }
 }

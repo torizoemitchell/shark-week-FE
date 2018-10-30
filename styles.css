@@ -30,9 +30,9 @@ body {
   color: midnightblue;
 }
 
-.button-color {
+/* .button-color{
   background-color: midnightblue;
-}
+} */
 
 .nav-text {
   color: midnightblue !important;
@@ -127,7 +127,24 @@ body {
 }
 
 /* button colors */
-.btn:hover {
-  background-color: midnightblue;
+.button-color {
+  background-color: midnightblue !important;
 }
-.btn:
+
+.btn:hover {
+  background-color: midnightblue !important;
+}
+
+.btn:active {
+  background-color: midnightblue !important;
+}
+
+.btn:visited {
+  background-color: midnightblue !important;
+}
+
+/* .waves-effect.waves-midnightblue .waves-ripple {
+ /* The alpha value allows the text and background color
+ of the button to still show through. */
+  background-color: ;
+} */

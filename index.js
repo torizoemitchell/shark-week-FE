@@ -72,7 +72,7 @@ function login(event) {
             localStorage.setItem('User Name', JSON.stringify(response.data.name))
             localStorage.setItem('User Entries', JSON.stringify(response.data.entries))
           }).then(() => {
-            window.location = `${location.host}/home.html`
+            window.location = `/home.html`
 
           })
 

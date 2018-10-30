@@ -6,9 +6,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let currentMonth = today.getMonth()
   let canvas = document.getElementById('canvas')
   makeCalendar(currentMonth, canvas)
+
   addCalendarFunctions(currentMonth, canvas)
 
+
+// Riley's edit day code, NOTE: need to fix current month issue after calendar has been updated
+let editCurrentDate = document.getElementById('editCurrentDate')
+let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+canvas.addEventListener('click', (event) => {
+    console.log(event.target)
+    editCurrentDate.innerHTML = month[currentMonth] + ', ' + event.target.id
+  })
+
 })
+
+// let editSubmit = document.getElementById('editSubmit')
+// editSubmit.addEventListener('click', function() => {
+//   if
+// })
+// end of edit day code
 
 let today = new Date()
 let url = "https://shark-week-server.herokuapp.com"

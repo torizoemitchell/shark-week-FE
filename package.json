@@ -24,6 +24,7 @@
     "scripts": {}
   },
   "dependencies": {
+    "@glidejs/glide": "^3.2.3",
     "lite-server": "^2.4.0"
   }
 }

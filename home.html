@@ -44,16 +44,16 @@
 
   <div class="container" id="user-input">
     <div class="row">
-      <form class="col s12 form center-align" id="input-form">
+      <form class="col s12 form center-align" id="entry-form">
         <div class="row">
           <div class="col s12 center-align">
-            <h3>Today</h3>
-            <h8>insert date here</h8>
+            <h5 id='welcome'></h5>
+            <h4 id="currentDate"></h4>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="temp" type="number" class="validate">
+            <input id="temp" type="float" class="validate">
             <label for="temp">Temp</label>
           </div>
         </div>
@@ -63,7 +63,7 @@
             <label>Are you currently menstrating?</label>
             <div class="switch">
               <label>No
-            <input type="checkbox">
+            <input type="checkbox" id=checkbox>
             <span class="lever"></span>
             Yes
             </label>
@@ -72,7 +72,7 @@
         </div>
         <div class="row">
           <div class="col s12 center-align">
-            <a class="waves-effect waves-light btn-large button-color">Submit</a>
+            <a class="waves-effect waves-light btn-large button-color" id="submit">Submit</a>
           </div>
         </div>
       </form>
@@ -89,7 +89,7 @@
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <!-- <script src="index.js"></script> -->
+  <script src="home.js"></script>
 </body>
 
 </html>

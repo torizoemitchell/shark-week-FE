@@ -30,9 +30,9 @@ body {
   color: midnightblue;
 }
 
-/* .button-color{
-  background-color: midnightblue;
-} */
+#successMessage{
+  color: green;
+}
 
 .nav-text {
   color: midnightblue !important;
@@ -142,9 +142,3 @@ body {
 .btn:visited {
   background-color: midnightblue !important;
 }
-
-/* .waves-effect.waves-midnightblue .waves-ripple {
- /* The alpha value allows the text and background color
- of the button to still show through. */
-  background-color: ;
-} */

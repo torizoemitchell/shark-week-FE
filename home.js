@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let currentMonth = today.getMonth()
   let canvas = document.getElementById('canvas')
   makeCalendar(currentMonth, canvas)
-  //look at entries and set colors for each day
-  //colorCalendar()
+
+  addCalendarFunctions(currentMonth, canvas)
+
 
 // Riley's edit day code, NOTE: need to fix current month issue after calendar has been updated
 let editCurrentDate = document.getElementById('editCurrentDate')
@@ -16,6 +17,7 @@ canvas.addEventListener('click', (event) => {
     console.log(event.target)
     editCurrentDate.innerHTML = month[currentMonth] + ', ' + event.target.id
   })
+
 })
 
 // let editSubmit = document.getElementById('editSubmit')
@@ -60,7 +62,12 @@ function postEntry (event) {
     .then((response) => {
 
       console.log(response)
-      //remake calendar with new data? here with buildCalendar()
+      let inputDiv = document.getElementById("user-input")
+      inputDiv.hidden = true
+
+      //remake calendar
+      makeCalendar(currentMonth, canvas)
+
     })
     .catch((error) => {
       console.log(error)
@@ -93,5 +100,34 @@ function makeCalendar (currentMonth, calendar){
       }
     }
     calendar.appendChild(row)
+  }
+}
+
+function addCalendarFunctions(currentMonth, calendar){
+  //next
+  let nextMonthButton = document.getElementById("next-month")
+  nextMonthButton.addEventListener('click', (event) =>{
+    event.preventDefault()
+    clearCanvas(calendar)
+    let nextMonth = currentMonth + 1
+    makeCalendar(nextMonth, calendar)
+    //for tracking purposes
+    currentMonth = nextMonth
+  })
+  //previous
+  let prevMonthButton = document.getElementById("prev-month")
+  prevMonthButton.addEventListener('click', (event) =>{
+    event.preventDefault()
+    clearCanvas(calendar)
+    let prevMonth = currentMonth - 1
+    makeCalendar(prevMonth, calendar)
+    //for tracking purposes
+    currentMonth = prevMonth
+  })
+}
+
+function clearCanvas(canvas){
+  while(canvas.hasChildNodes()){
+    canvas.removeChild(canvas.lastChild)
   }
 }

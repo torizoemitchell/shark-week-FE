@@ -32,6 +32,9 @@ function register(event) {
     axios.post(`${url}/users`, postData)
       .then((response) => {
         console.log(response)
+        //display success message:
+        let successMessageDiv = document.getElementById("successMessage")
+        successMessageDiv.innerText = "Success. Please close this window and Login."
       })
       .catch((error) => {
         console.log(error)

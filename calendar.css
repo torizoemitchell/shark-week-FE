@@ -1,0 +1,98 @@
+
+
+h1 {
+  align-self: center;
+  margin-top: 90px;
+  font-size: 80px;
+  font-family: fantasy;
+}
+
+.row  {
+  display: flex;
+  flex-direction: row;
+  /* flex: 1; */
+  align-content: center;
+  justify-content: center;
+  /* border: 3px solid black; */
+  /* margin: 50px; */
+}
+
+.filler  {
+  display: flex;
+  flex-direction: row;
+  /* flex: 1; */
+  align-content: center;
+  justify-content: center;
+  /* border: 3px solid black; */
+  /* margin: 50px; */
+}
+
+#colors  {
+  display: flex;
+  flex-direction: row;
+  /* flex: 1; */
+  align-content: center;
+  justify-content: center;
+  /* border: 3px solid black; */
+  margin: 10px 0px 0px 0px;
+}
+
+#palette {
+  /* display: flex; */
+  /* flex: 1; */
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  margin: 50px;
+}
+
+.pixel {
+  width: 100px;
+  height: 75px;
+
+  display: flex;
+  /* flex: 1; */
+  align-items: center;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  border: .5px solid black;
+  /* margin: 50px; */
+}
+
+.coloredCell {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  /* flex: 1; */
+  align-items: center;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  border: 1px solid black;
+  /* margin: 50px; */
+}
+
+#space {
+  width: 100px;
+  height: 50px;
+
+  display: flex;
+  /* flex: 1; */
+  align-items: center;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  /* border: 3px solid black; */
+  /* margin: 50px; */
+}
+
+#currentColor {
+  /* flex: 1; */
+  /* align-self: center; */
+  border: 3px solid black;
+  justify-content: center;
+  margin: 10px 0px;
+  padding: 10px 20px;
+  font-size: 30px;
+  font-family: fantasy;
+  flex-wrap: wrap;
+}

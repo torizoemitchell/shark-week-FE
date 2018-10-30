@@ -1,10 +1,10 @@
- 
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('here')
 
-  function buildCalculator() {
 
-      console.log('here')
 
-      let canvas = document.getElementById('canvas')
+
+  let canvas = document.getElementById('canvas')
 
 for (let j = 0; j < 5; j++) {
   let row = document.createElement('div')
@@ -15,10 +15,35 @@ for (let j = 0; j < 5; j++) {
       pixel.id = (i + 1) + (j*7)
       row.appendChild(pixel)
 
-        }
-        canvas.appendChild(row)
-      }
+    }
+  canvas.appendChild(row)
+}
 
 
-  }
+  // let changeColor = (event) => {
+  //   console.log(event.target);
+  //   if (event.target.className === 'pixel') {
+  //   event.target.style.backgroundColor = currentColor.style.backgroundColor
+  //   }
+  // }
 
+  // canvas.addEventListener('click', changeColor)
+
+
+
+  // blue.addEventListener('click', function() {
+  //   currentColor.style.backgroundColor = 'blue'
+  // })
+  // red.addEventListener('click', function() {
+  //   currentColor.style.backgroundColor = 'red'
+  // })
+  // yellow.addEventListener('click', function() {
+  //   currentColor.style.backgroundColor = 'yellow'
+  // })
+  // green.addEventListener('click', function() {
+  //   currentColor.style.backgroundColor = 'green'
+  // })
+
+
+
+})

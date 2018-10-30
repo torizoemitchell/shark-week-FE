@@ -13,7 +13,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let storageData = JSON.parse(localStorage.getItem('User Entries'))
   console.log("storageData:",storageData[0].day);
   appendData()
+
+  addCalendarFunctions(currentMonth, canvas)
+
+
+// Riley's edit day code, NOTE: need to fix current month issue after calendar has been updated
+let editCurrentDate = document.getElementById('editCurrentDate')
+let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+canvas.addEventListener('click', (event) => {
+    console.log(event.target)
+    editCurrentDate.innerHTML = month[currentMonth] + ', ' + event.target.id
+  })
+
 })
+
+// let editSubmit = document.getElementById('editSubmit')
+// editSubmit.addEventListener('click', function() => {
+//   if
+// })
+// end of edit day code
 
 let today = new Date()
 let url = "https://shark-week-server.herokuapp.com"
@@ -79,6 +97,14 @@ function postEntry () {
     .then((response) => {
       console.log("response:", response)
       //remake calendar with new data? here with buildCalendar()
+
+      console.log(response)
+      let inputDiv = document.getElementById("user-input")
+      inputDiv.hidden = true
+
+      //remake calendar
+      makeCalendar(currentMonth, canvas)
+
     })
     .catch((error) => {
       console.log(error)
@@ -102,4 +128,33 @@ function appendData () {
     day.setAttribute("flow", element.flow)
 
   })
+}
+
+function addCalendarFunctions(currentMonth, calendar){
+  //next
+  let nextMonthButton = document.getElementById("next-month")
+  nextMonthButton.addEventListener('click', (event) =>{
+    event.preventDefault()
+    clearCanvas(calendar)
+    let nextMonth = currentMonth + 1
+    makeCalendar(nextMonth, calendar)
+    //for tracking purposes
+    currentMonth = nextMonth
+  })
+  //previous
+  let prevMonthButton = document.getElementById("prev-month")
+  prevMonthButton.addEventListener('click', (event) =>{
+    event.preventDefault()
+    clearCanvas(calendar)
+    let prevMonth = currentMonth - 1
+    makeCalendar(prevMonth, calendar)
+    //for tracking purposes
+    currentMonth = prevMonth
+  })
+}
+
+function clearCanvas(canvas){
+  while(canvas.hasChildNodes()){
+    canvas.removeChild(canvas.lastChild)
+  }
 }

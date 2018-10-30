@@ -4,8 +4,12 @@
 <head>
   <meta charset="utf-8">
   <title>LogIn</title>
+<<<<<<< HEAD
+  <link rel="icon" href="./images/last-quarter-blue.png" type="image/gif" sizes="16x16">
+=======
   <!-- Axios import -->
   <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+>>>>>>> 2c009641c3eed857a34f74867b672ff7c2b94d66
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <!--Let browser know website is optimized for mobile-->
@@ -53,6 +57,8 @@
           <div class="col s12 center-align">
             <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="100" width="100">
           </div>
+          <span class=" col s12 center-align">Tempo</span>
+          <span class=" col s12 center-align">Ovulation Intelligence</span>
         </div>
         <div class="row">
           <div class="input-field col s12">
@@ -76,39 +82,47 @@
         <div class="row">
           <div class="col s12 center-align">
             <span class="label label-default" id="first-time">First Time?</span><br>
-            <a class="waves-effect waves-light btn-large modal-trigger button-color" href="#signup" id="sign-up">Sign Up</a>
+            <a class="waves-effect btn-large modal-trigger button-color" href="#signup" id="sign-up">Sign Up</a>
           </div>
         </div>
+
       </form>
-        <!-- modal -->
-        <div id="signup" class="modal">
-          <div class="modal-content">
-            <h4>Welcome to Tempo!</h4>
-            <p>please register here</p>
-
-            <form id="registration">
-
-            <label for="name">Name</label>
-            <input type="text" name="name" id="regName" required autofocus><br>
-
-            <label for="email">Email</label>
-            <input type="email" name="email" id="regEmail" required><br>
-
-            <label for="password">Password</label>
-            <input type="password" name="password" id="regPassword" required><br>
-
-            <label for="cycle_length">Cycle_length (optional)</label>
-            <input type="text" name="cycle_length" id="regCycle_length" required><br>
+    </div>
+  </div>
 
 
-            <br><br><br><br>
-            <input type="submit" value="Submit" id="submit-form" class="modal-close">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-          </div>
+  <!-- modal -->
+  <div id="signup" class="modal">
+    <div class="modal-content nav-text">
+      <h4>Welcome to Tempo!</h4>
+      <h7>Please Register Here:</h7>
+
+      <form id="registration">
+        <div class="input-field">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="regName" required><br>
         </div>
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="regEmail" required><br>
+        </div>
+        <div class="input-field">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="regPassword" required><br>
+        </div>
+        <div class="input-field">
+          <label for="cycle_length">Cycle Length in Days (optional)</label>
+          <input type="number" name="cycle_length" id="regCycle_length" required><br>
+        </div>
+
+        <br>
+        <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="submit-form" name="action">Submit<i class="material-icons right">send</i>
+        </button>
+        <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
     </div>
   </div>
 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="icon" href="./images/last-quarter-blue.png" type="image/gif" sizes="16x16">
+  <!-- Axios import -->
+  <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Abel|Ubuntu" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var options = {}
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems, options);
+    });
+  </script>
+</head>
+
+<body>
+
+  <nav class="header">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo brand">Tempo</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="">Log Out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <div class="background center-align">
+      <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
+    </div>
+    <li><a class="nav-text" href="">Log Out</a></li>
+
+  </ul>
+
+  <div class="container" id="user-input">
+    <div class="row">
+      <form class="col s12 form center-align" id="entry-form">
+        <div class="row">
+          <div class="col s12 center-align">
+            <h5 id='welcome'></h5>
+            <h4 id="currentDate"></h4>
+          </div>
+        </div>
+        <div class="col s12 center-align">
+          <h7>Please input your basal body temperature for today: </h7>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 center-align">
+            <input id="temp" type="float" class="validate" required autofocus>
+          </div>
+        </div>
+        <!-- Switch -->
+        <div class="row">
+          <div class="col s12 center-align">
+            <label>Is Aunt Flow In Town?</label>
+            <div class="switch">
+              <label>No
+            <input type="checkbox" id=checkbox>
+            <span class="lever"></span>
+            Yes
+            </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 center-align">
+            <a class="waves-effect waves-light btn-large button-color" id="submit">Submit</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container" id="calendar">
+    <div class="row">
+      <div class="col s12 form center-align">
+        <h3>Your Calendar</h3>
+        <div class="container">
+          <h1 class='center'>Calendar</h1>
+          <div id='canvas'>
+            <!-- canvas here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="home.js"></script>
+</body>
+
+</html>

@@ -21,8 +21,9 @@
     "surge": "^0.20.1"
   },
   "git": {
-    "scripts": {
-      "pre-push": "node_modules/.bin/surge --project ./ --domain shark-week.surge.sh"
-    }
+    "scripts": {}
+  },
+  "dependencies": {
+    "lite-server": "^2.4.0"
   }
 }

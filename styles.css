@@ -1,31 +1,150 @@
 body {
   font-family: 'Ubuntu', sans-serif;
-  /* background-color: blue; */
   background-image: url("./images/grad.jpeg");
-  background-size: cover;
+  background-size: 100% 100%;
+  /* background-repeat: no-repeat; */
+  /* background-position: center; */
 }
+
 .brand {
   color: white !important;
   font-family: 'Abel', sans-serif;
+  padding-left: 15px !important;
 }
 
 .header {
   background-color: midnightblue;
 }
 
-.moon-logo{
-  display: block;
+.moon-logo {
+  margin-top: 30px;
 }
 
-#first-time{
+#first-time {
   color: grey;
 }
 
-.login-form{
+.form {
   margin-top: 50px;
   background-color: white;
+  color: midnightblue;
 }
 
-.button-color{
+/* .button-color{
   background-color: midnightblue;
+} */
+
+.nav-text {
+  color: midnightblue !important;
 }
+
+/* form colors */
+
+/* label color */
+
+.input-field label {
+  color: midnightblue !important;
+  border-bottom: midnightblue !important;
+  box-shadow: midnightblue !important;
+}
+
+/* label focus color */
+
+.input-field input[type=email]:focus+label {
+  color: midnightblue !important;
+  border-bottom: midnightblue !important;
+  box-shadow: midnightblue !important;
+}
+
+.input-field input[type=password]:focus+label {
+  color: midnightblue !important;
+  border-bottom: midnightblue !important;
+  box-shadow: midnightblue !important;
+}
+
+.input-field input[type=number]:focus+label {
+  color: midnightblue !important;
+  border-bottom: midnightblue !important;
+  box-shadow: midnightblue !important;
+}
+
+.input-field input[type=text]:focus+label {
+  color: midnightblue !important;
+  border-bottom: midnightblue !important;
+  box-shadow: midnightblue !important;
+}
+
+/* label underline focus color */
+
+.input-field input[type=email]:focus {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: 0 1px 0 0 midnightblue !important;
+}
+
+.input-field input[type=password]:focus {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: 0 1px 0 0 midnightblue !important;
+}
+
+.input-field input[type=number]:focus {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: 0 1px 0 0 midnightblue !important;
+}
+
+.input-field input[type=text]:focus {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: 0 1px 0 0 midnightblue !important;
+}
+
+/* valid color */
+
+.input-field input[type=email].valid {
+  color: midnightblue;
+  border-bottom: 1px solid midnightblue;
+  box-shadow: 0 1px 0 0 midnightblue;
+}
+
+/* icon prefix focus color */
+
+.input-field .prefix.active {
+  color: midnightblue;
+  border-bottom: midnightblue;
+  box-shadow: midnightblue;
+}
+
+/* switch colors */
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: orange;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: orange;
+}
+
+/* button colors */
+.button-color {
+  background-color: midnightblue !important;
+}
+
+.btn:hover {
+  background-color: midnightblue !important;
+}
+
+.btn:active {
+  background-color: midnightblue !important;
+}
+
+.btn:visited {
+  background-color: midnightblue !important;
+}
+
+/* .waves-effect.waves-midnightblue .waves-ripple {
+ /* The alpha value allows the text and background color
+ of the button to still show through. */
+  background-color: ;
+} */

@@ -21,8 +21,9 @@
     "surge": "^0.20.1"
   },
   "git": {
-    "scripts": {
-
-    }
+    "scripts": {}
+  },
+  "dependencies": {
+    "lite-server": "^2.4.0"
   }
 }

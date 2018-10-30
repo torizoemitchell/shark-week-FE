@@ -53,16 +53,18 @@
             <h4 id="currentDate"></h4>
           </div>
         </div>
+        <div class="col s12 center-align">
+          <h7>Please input your basal body temperature for today: </h7>
+        </div>
         <div class="row">
-          <div class="input-field col s12">
-            <input id="temp" type="float" class="validate">
-            <label for="temp">Temp</label>
+          <div class="input-field col s12 center-align">
+            <input id="temp" type="float" class="validate" required autofocus>
           </div>
         </div>
         <!-- Switch -->
         <div class="row">
           <div class="col s12 center-align">
-            <label>Are you currently menstrating?</label>
+            <label>Is Aunt Flow In Town?</label>
             <div class="switch">
               <label>No
             <input type="checkbox" id=checkbox>
@@ -85,6 +87,12 @@
     <div class="row">
       <div class="col s12 form center-align">
         <h3>Your Calendar</h3>
+        <div class="container">
+          <h1 class='center'>Calendar</h1>
+          <div id='canvas'>
+            <!-- canvas here -->
+          </div>
+        </div>
       </div>
     </div>
   </div>

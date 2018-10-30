@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();
-
   register()
   login()
 })
@@ -9,7 +8,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 let signUpButton = document.getElementById("sign-up")
 let emailInput = document.getElementById('email')
 let passwordInput = document.getElementById('password')
-let url = 'http://localhost:5000'
+//let url = 'http://localhost:5000'
+let url = "https://shark-week-server.herokuapp.com"
 
 // function showSignUpForm (event){
 //   signUpForm = document.getElementById("signup-form")
@@ -55,7 +55,6 @@ function login (event) {
     ev.preventDefault()
     // grab all values from the form
     let postData = {}
-    let formElements = ev.target.elements
 
 
       let email = document.getElementById('email')
@@ -63,15 +62,22 @@ function login (event) {
       postData[email.id] = email.value
       postData[password.id] = password.value
 
-    console.log('postData', postData);
+    //console.log('postData', postData);
 
-    // axios.get that data and backend will respond with user info and 30 entries
-    axios.get(`${url}//users/login?email=${email.value}&password=${password.value}`, postData)
+    // axios.get that data and backend will respond with user info and all entries
+    axios.get(`${url}/users/login?email=${email.value}&password=${password.value}`, postData)
     .then((response) => {
-      console.log('response:',response)
+      console.log('response:', response);
+      localStorage.setItem('User ID',JSON.stringify(response.data.id))
+      localStorage.setItem('User Name',JSON.stringify(response.data.name))
+      localStorage.setItem('User Entries',JSON.stringify(response.data.entries))
+      window.location = 'http://localhost:3000/home.html'
+
+
     })
     .catch((error) => {
-      console.log(error)
+      console.log('error:',error)
     })
+
   })
 }

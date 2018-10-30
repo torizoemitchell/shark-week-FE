@@ -9,7 +9,7 @@ let today = new Date()
 let userName = localStorage.getItem('User Name')
 console.log("name:",userName);
 let welcome = document.getElementById('welcome')
-welcome.innerText = `Good morning ${userName}! Please input your daily entry.`
+welcome.innerText = `Good Morning, ${userName}.`
 let currentDate = document.getElementById('currentDate')
 currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
 
@@ -36,6 +36,7 @@ function postEntry (event) {
     .then((response) => {
 
       console.log(response)
+      //remake calendar with new data? here with buildCalendar()
     })
     .catch((error) => {
       console.log(error)

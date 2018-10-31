@@ -206,5 +206,5 @@ function clearCanvas(canvas){
 
 function showCurrentMonth(currentMonth) {
   let calendarMonth = document.getElementById('currentMonth')
-  calendarMonth.innerText = `${months[currentMonth]} ${currentYear}`
+  calendarMonth.innerText = months[currentMonth]
 }

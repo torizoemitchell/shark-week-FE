@@ -81,16 +81,16 @@ function setEditFormListener () {
   })
 }
 
-function makeCalendar (currentMonth, calendar, yearModifier = 0){
+function makeCalendar (currentMonth, calendar){
 
-  showCurrentMonth(currentMonth, currentYear + yearModifier)
+  showCurrentMonth(currentMonth, currentYear)
   addHeader(calendar)
 
   for (let r = 0; r < 6; r++) {
     let row = document.createElement('div')
 
     row.classList.add('row')
-    addDates(currentMonth, row, r, yearModifier)
+    addDates(currentMonth, row, r)
     calendar.appendChild(row)
   }
   setCalendarDataAttributes()
@@ -114,11 +114,10 @@ function addHeader(calendar) {
   calendar.appendChild(header)
 }
 
-function addDates(currentMonth, row, r, yearModifier = 0) {
+function addDates(currentMonth, row, r) {
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  let year = today.getFullYear() + yearModifier
-  let firstDate = new Date(year, currentMonth, 01)
+  let firstDate = new Date(currentYear, currentMonth, 01)
   let numberOfBlanks = firstDate.getDay()
   let date = 1 + (r * 7)
   
@@ -180,7 +179,8 @@ function addCalendarFunctions(currentMonth, calendar){
     let nextMonth = currentMonth + 1
     if (nextMonth > 11) {
       nextMonth = 0
-      makeCalendar(nextMonth, calendar, 1)
+      currentYear++
+      makeCalendar(nextMonth, calendar)
     } else {
       makeCalendar(nextMonth, calendar)
     }
@@ -199,7 +199,8 @@ function addCalendarFunctions(currentMonth, calendar){
 
     if (prevMonth < 0) {
       prevMonth = 11
-      makeCalendar(prevMonth, calendar, -1)
+      currentYear--
+      makeCalendar(prevMonth, calendar)
     } else {
       makeCalendar(prevMonth, calendar)
     }

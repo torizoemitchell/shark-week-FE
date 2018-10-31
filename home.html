@@ -33,7 +33,8 @@
       <a href="#!" class="brand-logo brand">Tempo</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="" id="logout">Log Out</a></li>
+        <li><a id="logout" href="">Log Out</a></li>
+        <li><a id="setHeadButton" class="modal-trigger" href="#settings">Settings</a></li>
       </ul>
     </div>
   </nav>
@@ -42,9 +43,8 @@
     <div class="background center-align">
       <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
     </div>
-    <li><a class="nav-text" href=""
-      id="mobileLogout">Log Out</a></li>
-
+    <li><a class="nav-text" id="mobileLogout" href="" id>Log Out</a></li>
+    <li><a id="setNavButton" class="modal-trigger" href="#settings">Settings</a></li>
   </ul>
 
   <div class="container" id="user-input">
@@ -61,7 +61,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12 center-align">
-            <input id="temp" type="float" class="validate input" required autofocus>
+            <input id="temp" type="number" class="validate input" Style="text-align: center" pattern="\d\d.\d\d" data-error="Please Use 2 decimal places." step="0.01" min="97.00" max="99.99" required autofocus>
           </div>
         </div>
         <!-- Switch -->
@@ -79,7 +79,9 @@
         </div>
         <div class="row">
           <div class="col s12 center-align">
-            <a class="waves-effect waves-light btn-large button-color" id="submit">Submit</a>
+            <!-- <a type="submit" class="waves-effect waves-light btn-large button-color" id="submit">Submit</a> -->
+            <button class="btn waves-effect waves-light button-color validate" value="Submit" type="submit" id="submit" name="action">Submit<i class="material-icons right">send</i>
+            </button>
           </div>
         </div>
       </form>
@@ -91,7 +93,6 @@
       <div class="col s12 form center-align">
 
         <div class="row valign-wrapper">
-
           <div class="col s3">
             <a href="#" id="prev-month" class="previous round">&#8249;</a>
           </div>
@@ -101,13 +102,31 @@
           <div class="col s3">
             <a href="#" id="next-month" class="next round">&#8250;</a>
           </div>
+        </div>
 
+        <div class="row">
+          <div class="col s2">
+            <h8>Pregnancy Likely</h8>
+          </div>
+          <div class="col s8">
+            <ul class="legend">
+                <li><span class="amber lighten-4"></span></li>
+                <li><span class="amber lighten-3"></span></li>
+                <li><span class="amber lighten-2"></span></li>
+                <li><span class="amber lighten-1"></span></li>
+                <li><span class="amber"></span></li>
+            </ul>
+          </div>
+          <div class="col s2 left-align">
+            <h8>Pregnancy Extremely Likely</h8>
+          </div>
         </div>
 
         <div class="container">
           <a class="modal-trigger" href="#editEntry" id="edit-entry">
             <div class="row">
-              <div class="col s12">
+              <div class="col s3"></div>
+              <div class="col s9">
                 <div id='canvas'>
                   <!-- canvas here -->
                 </div>
@@ -155,6 +174,44 @@
             </div>
           </div>
 
+          <!-- modal -->
+          <div id="settings" class="modal">
+            <div class="modal-content nav-text">
+              <h4>Settings!</h4>
+              <h7>Edit your information below:</h7>
+
+              <form id="settingsForm">
+                <div class="input-field">
+                  <label for="name">Name</label><br>
+                  <input type="text" name="name" id="setName" required><br>
+                </div>
+                <div class="input-field">
+                  <label for="email">Email</label><br>
+                  <input type="email" name="email" id="setEmail" required><br>
+                </div>
+                <!-- <div class="input-field">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" id="setPassword" required><br>
+                </div> -->
+                <div class="input-field">
+                  <label for="cycle_length">Cycle Length in Days (optional)</label><br>
+                  <input type="number" name="cycle_length" id="setCycle_length"><br>
+                </div>
+
+                <br>
+                <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
+                </button>
+                <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
+              </form>
+              <br>
+              <div id="setSuccessMessage">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -164,6 +221,7 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/home.js"></script>
+  <script src="settings.js"></script>
 </body>
 
 </html>

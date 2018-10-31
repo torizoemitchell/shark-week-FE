@@ -32,7 +32,8 @@ function welcomeUser() {
   let currentDate = document.getElementById('currentDate')
 
   welcome.innerText = `Good Morning, ${userName}.`
-  currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
+
+ currentDate.innerText = `${months[today.getMonth()]} ${today.getDate()}`
   currentDate.setAttribute('data-id', `${today.getMonth()}-${today.getDate()}` )
 
   console.log("name:",userName);
@@ -41,8 +42,8 @@ function welcomeUser() {
 
 function setEditFormListener () {
   let button = document.getElementById('submit')
-
   button.addEventListener('click', (ev) => {
+
     ev.preventDefault()
     // grab all values from the button
     let postData = {}
@@ -59,6 +60,7 @@ function setEditFormListener () {
     postData['flow'] = toggle
 
     console.log('postData', postData);
+
     if (dateID) {
       //axios.put if editing existing entry
       put(postData, dateID)
@@ -115,10 +117,11 @@ function makeCalendar (currentMonth, calendar){
     calendar.appendChild(row)
   }
   setCalendarDataAttributes()
+  colorCalendar()
 }
 
 function addHeader(calendar) {
-  let day = ['Sun', 'M', 'T', 'W', 'Th', 'F', 'Sat']
+  let day = ['Su', 'M', 'T', 'W', 'Th', 'F', 'Sa']
   let header = document.createElement('div')
 
   header.classList.add('row')
@@ -178,7 +181,7 @@ function setCalendarDataAttributes() {
 
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
-  entries.forEach(function(entry) {
+  entries.forEach(entry => {
       let day = document.getElementById(`${entry.month}-${entry.day}`)
 
       if (!day) return
@@ -187,6 +190,39 @@ function setCalendarDataAttributes() {
       day.setAttribute("data-flow", entry.flow)
       day.setAttribute("data-id", entry.id)
       })
+}
+
+function colorCalendar() {
+  let entries = JSON.parse(localStorage.getItem('User Entries'))
+
+  entries.forEach(entry => {
+    let day = document.getElementById(`${entry.month}-${entry.day}`)
+    if (!day) return
+    
+    let tempDifference = day.dataset.temp - 98.60 
+    setGradient(tempDifference, day)
+  })
+}
+
+function setGradient(difference, element) {
+  if (difference >= 0.4 ) {
+    element.classList.add('amber')
+  } else {
+    element.classList.add('blue')
+    element.classList.add('lighten-4')
+  } 
+  if (difference > 0.4 && difference <= 0.55) {
+    element.classList.add('darken-1')
+  } 
+  if (difference > 0.55 && difference <= 0.65) {
+    element.classList.add('darken-2')
+  } 
+  if (difference > 0.65 && difference <= 0.75) {
+    element.classList.add('darken-3')
+  } 
+  if (difference > 0.75) {
+    element.classList.add('darken-4')
+  }
 }
 
 function addCalendarFunctions(currentMonth, calendar){
@@ -254,6 +290,7 @@ function logOut(event) {
       localStorage.clear()
       window.location = `/index.html`
   })
+
 }
 
 function put(postData, entryID) {

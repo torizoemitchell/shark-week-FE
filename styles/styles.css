@@ -24,18 +24,30 @@ body {
   color: lightgrey;
 }
 
+#setNavButton {
+  color: midnightblue;
+}
+
 .form {
   margin-top: 50px;
   background-color: white;
   color: midnightblue;
 }
 
-.input{
+.input {
   border-color: grey;
 }
 
+.card-pic {
+  height: 50px;
+  width: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
-#successMessage{
+#successMessage {
   color: green;
 }
 
@@ -53,50 +65,98 @@ body {
   box-shadow: midnightblue !important;
 }
 
-/* label focus color */
+/* email */
 
-.input-field input[type=email]:focus+label {
-  color: midnightblue !important;
-  border-bottom: midnightblue !important;
-  box-shadow: midnightblue !important;
+.input-field input[type=email].invalid {
+  color: midnightblue;
+  border-bottom: 1px solid red;
+  box-shadow: none !important;
 }
-
-.input-field input[type=password]:focus+label {
-  color: midnightblue !important;
-  border-bottom: midnightblue !important;
-  box-shadow: midnightblue !important;
+.input-field input[type=email].valid {
+  color: midnightblue;
+  border-bottom: 1px solid midnightblue;
+  box-shadow: none !important;
 }
-
-.input-field input[type=number]:focus+label {
-  color: midnightblue !important;
-  border-bottom: midnightblue !important;
-  box-shadow: midnightblue !important;
-}
-
-.input-field input[type=text]:focus+label {
-  color: midnightblue !important;
-  border-bottom: midnightblue !important;
-  box-shadow: midnightblue !important;
-}
-
-/* label underline focus color */
 
 .input-field input[type=email]:focus {
   color: midnightblue !important;
   border-bottom: 1px solid midnightblue !important;
-  box-shadow: 0 1px 0 0 midnightblue !important;
+  box-shadow: none !important;
+}
+
+/* password */
+.input-field input[type=password].invalid {
+  color: midnightblue;
+  border-bottom: 1px solid red;
+  box-shadow: none !important;
+}
+.input-field input[type=password].valid {
+  color: midnightblue;
+  border-bottom: 1px solid midnightblue;
+  box-shadow: none !important;
 }
 
 .input-field input[type=password]:focus {
   color: midnightblue !important;
   border-bottom: 1px solid midnightblue !important;
-  box-shadow: 0 1px 0 0 midnightblue !important;
+  box-shadow: none !important;
+}
+
+/* text */
+.input-field input[type=text].invalid {
+  color: midnightblue;
+  border-bottom: 1px solid red;
+  box-shadow: none !important;
+}
+.input-field input[type=text].valid {
+  color: midnightblue;
+  border-bottom: 1px solid midnightblue;
+  box-shadow: none !important;
+}
+
+.input-field input[type=text]:focus {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: none !important;
+}
+
+
+/* number */
+
+.input-field input[type=number].invalid {
+  color: midnightblue;
+  border-bottom: 1px solid red;
+  box-shadow: none !important;
+}
+.input-field input[type=number].valid {
+  color: midnightblue;
+  border-bottom: 1px solid midnightblue;
+  box-shadow: none !important;
 }
 
 .input-field input[type=number]:focus {
   color: midnightblue !important;
   border-bottom: 1px solid midnightblue !important;
-  box-shadow: 0 1px 0 0 midnightblue !important;
+  box-shadow: none !important;
+}
+
+
+.input-field input[type=number]:focus {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: none !important;
+}
+
+.input-field input[type=number]:active {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: none !important;
+}
+
+.input-field input[type=number]:invalid {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: none !important;
 }
 
 .input-field input[type=text]:focus {
@@ -107,18 +167,14 @@ body {
 
 /* valid color */
 
-.input-field input[type=email].valid {
-  color: midnightblue;
-  border-bottom: 1px solid midnightblue;
-  box-shadow: 0 1px 0 0 midnightblue;
-}
+
 
 /* icon prefix focus color */
 
 .input-field .prefix.active {
   color: midnightblue;
   border-bottom: midnightblue;
-  box-shadow: midnightblue;
+  box-shadow: 0 1px 0 0 midnightblue;
 }
 
 /* switch colors */
@@ -132,6 +188,7 @@ body {
 }
 
 /* button colors */
+
 .button-color {
   background-color: midnightblue !important;
 }

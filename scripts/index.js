@@ -32,9 +32,15 @@ function register(event) {
     axios.post(`${url}/users`, postData)
       .then((response) => {
         console.log(response)
+        closeSignUpButton = document.getElementById("close-signup")
+        closeSignUpButton.click()
+
+
+      }).then(()=>{
         //display success message:
         let successMessageDiv = document.getElementById("successMessage")
-        successMessageDiv.innerText = "Success. Please close this window and Login."
+        console.log("Successmessage", successMessageDiv)
+        successMessageDiv.innerText = "Successfully Registered. Please Login."
       })
       .catch((error) => {
         console.log(error)
@@ -64,9 +70,11 @@ function login(event) {
             localStorage.setItem('User ID', JSON.stringify(response.data.id))
             localStorage.setItem('User Name', JSON.stringify(response.data.name))
             localStorage.setItem('User Entries', JSON.stringify(response.data.entries))
+            localStorage.setItem('User Cycle_Length', JSON.stringify(response.data.cycle_length))
+            localStorage.setItem('User Email', JSON.stringify(email.value))
+
           }).then(() => {
             window.location = `/home.html`
-
           })
 
 

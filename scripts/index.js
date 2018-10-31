@@ -32,9 +32,15 @@ function register(event) {
     axios.post(`${url}/users`, postData)
       .then((response) => {
         console.log(response)
+        closeSignUpButton = document.getElementById("close-signup")
+        closeSignUpButton.click()
+
+
+      }).then(()=>{
         //display success message:
         let successMessageDiv = document.getElementById("successMessage")
-        successMessageDiv.innerText = "Success. Please close this window and Login."
+        console.log("Successmessage", successMessageDiv)
+        successMessageDiv.innerText = "Successfully Registered. Please Login."
       })
       .catch((error) => {
         console.log(error)

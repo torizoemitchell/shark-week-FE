@@ -161,10 +161,11 @@ function setCalendarDataAttributes() {
   entries.forEach(function(entry) {
     if (currentMonth === entry.month) {
       let day = document.getElementById(entry.day)
-    
-      day.setAttribute("data-temp", entry.temp)
-      day.setAttribute("data-flow", entry.flow)
-      day.setAttribute("data-id", entry.id)
+      if (day) {
+        day.setAttribute("data-temp", entry.temp)
+        day.setAttribute("data-flow", entry.flow)
+        day.setAttribute("data-id", entry.id)
+      }
     }
   })
 }

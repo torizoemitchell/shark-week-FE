@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   appendData()
 
   addCalendarFunctions(currentMonth, canvas)
-
+  logOut()
 
 // Riley's edit day code, NOTE: need to fix current month issue after calendar has been updated
 let editCurrentDate = document.getElementById('editCurrentDate')
@@ -207,4 +207,20 @@ function clearCanvas(canvas){
 function showCurrentMonth(currentMonth) {
   let calendarMonth = document.getElementById('currentMonth')
   calendarMonth.innerText = `${months[currentMonth]} ${currentYear}`
+}
+
+function logOut(event) {
+  let link1 = document.getElementById('logout')
+  link1.addEventListener('click', (ev) => {
+      ev.preventDefault()
+      localStorage.clear()
+      window.location = `/index.html`
+      })
+
+  let link2 = document.getElementById('mobileLogout')
+      link2.addEventListener('click', (ev) => {
+      ev.preventDefault()
+      localStorage.clear()
+      window.location = `/index.html`
+  })
 }

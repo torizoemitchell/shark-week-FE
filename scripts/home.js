@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 let editCurrentDate = document.getElementById('editCurrentDate')
 canvas.addEventListener('click', (event) => {
     console.log(event.target)
-    editCurrentDate.innerHTML = months[currentMonth] + ', ' + event.target.id
+    editCurrentDate.innerHTML = months[currentMonth] + ', ' + event.target.id.split('-')[1]
   })
 
 })
@@ -147,7 +147,7 @@ function addDates(currentMonth, row, r) {
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
-    col.id = `${currentMonth}${date}`
+    col.id = `${currentMonth}-${date}`
     row.appendChild(col)
     date++
   }
@@ -158,7 +158,7 @@ function setCalendarDataAttributes() {
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   entries.forEach(function(entry) {
-      let day = document.getElementById(`${entry.month}${entry.day}`)
+      let day = document.getElementById(`${entry.month}-${entry.day}`)
       if (!day) return 
       
       day.setAttribute("data-temp", entry.temp)

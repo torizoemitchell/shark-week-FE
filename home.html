@@ -33,7 +33,8 @@
       <a href="#!" class="brand-logo brand">Tempo</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="" id="logout">Log Out</a></li>
+        <li><a id="logout" href="">Log Out</a></li>
+        <li><a id="setHeadButton" class="modal-trigger" href="#settings">Settings</a></li>
       </ul>
     </div>
   </nav>
@@ -42,9 +43,8 @@
     <div class="background center-align">
       <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
     </div>
-    <li><a class="nav-text" href=""
-      id="mobileLogout">Log Out</a></li>
-
+    <li><a class="nav-text" id="mobileLogout" href="" id>Log Out</a></li>
+    <li><a id="setNavButton" class="modal-trigger" href="#settings">Settings</a></li>
   </ul>
 
   <div class="container" id="user-input">
@@ -159,6 +159,44 @@
             </div>
           </div>
 
+          <!-- modal -->
+          <div id="settings" class="modal">
+            <div class="modal-content nav-text">
+              <h4>Settings!</h4>
+              <h7>Edit your information below:</h7>
+
+              <form id="settingsForm">
+                <div class="input-field">
+                  <label for="name">Name</label><br>
+                  <input type="text" name="name" id="setName" required><br>
+                </div>
+                <div class="input-field">
+                  <label for="email">Email</label><br>
+                  <input type="email" name="email" id="setEmail" required><br>
+                </div>
+                <!-- <div class="input-field">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" id="setPassword" required><br>
+                </div> -->
+                <div class="input-field">
+                  <label for="cycle_length">Cycle Length in Days (optional)</label><br>
+                  <input type="number" name="cycle_length" id="setCycle_length"><br>
+                </div>
+
+                <br>
+                <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
+                </button>
+                <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
+              </form>
+              <br>
+              <div id="setSuccessMessage">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -168,6 +206,7 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/home.js"></script>
+  <script src="settings.js"></script>
 </body>
 
 </html>

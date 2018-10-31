@@ -38,12 +38,13 @@ canvas.addEventListener('click', (event) => {
 // end of edit day code
 
 function welcomeUser() {
-  debugger
   let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
   let welcome = document.getElementById('welcome')
-
+  let currentDate = document.getElementById('currentDate')
+  
   welcome.innerText = `Good Morning, ${userName}.`
   currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
+  
   console.log("name:",userName);
   
 }

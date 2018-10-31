@@ -147,7 +147,7 @@ function addDates(currentMonth, row, r) {
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
-    col.id = date
+    col.id = `${currentMonth}${date}`
     row.appendChild(col)
     date++
   }
@@ -158,15 +158,13 @@ function setCalendarDataAttributes() {
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   entries.forEach(function(entry) {
-    if (currentMonth === entry.month) {
-      let day = document.getElementById(entry.day)
-      if (day) {
-        day.setAttribute("data-temp", entry.temp)
-        day.setAttribute("data-flow", entry.flow)
-        day.setAttribute("data-id", entry.id)
-      }
-    }
-  })
+      let day = document.getElementById(`${entry.month}${entry.day}`)
+      if (!day) return 
+      
+      day.setAttribute("data-temp", entry.temp)
+      day.setAttribute("data-flow", entry.flow)
+      day.setAttribute("data-id", entry.id)
+      })
 }
 
 function addCalendarFunctions(currentMonth, calendar){

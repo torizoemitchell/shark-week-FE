@@ -83,7 +83,7 @@ function setEditFormListener () {
 
 function makeCalendar (currentMonth, calendar, yearModifier = 0){
 
-  showCurrentMonth(currentMonth)
+  showCurrentMonth(currentMonth, currentYear + yearModifier)
   addHeader(calendar)
 
   for (let r = 0; r < 6; r++) {
@@ -214,7 +214,7 @@ function clearCanvas(canvas){
   }
 }
 
-function showCurrentMonth(currentMonth) {
+function showCurrentMonth(month, year) {
   let calendarMonth = document.getElementById('currentMonth')
-  calendarMonth.innerText = `${months[currentMonth]} ${currentYear}`
+  calendarMonth.innerText = `${months[month]} ${year}`
 }

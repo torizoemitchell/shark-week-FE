@@ -172,27 +172,30 @@ function colorCalendar() {
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   entries.forEach(entry => {
-    debugger
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
     
     let tempDifference = day.dataset.temp - 98.60 
-    if (tempDifference >= 0.4 ) {
-      day.classList.add('amber')
-    } 
-    if (tempDifference > 0.4 && tempDifference <= 0.55) {
-      day.classList.add('darken-1')
-    } 
-    if (tempDifference > 0.55 && tempDifference <= 0.65) {
-      day.classList.add('darken-2')
-    } 
-    if (tempDifference > 0.65 && tempDifference <= 0.75) {
-      day.classList.add('darken-3')
-    } 
-    if (tempDifference > 0.75) {
-      day.classList.add('darken-4')
-    }
+    setGradient(tempDifference, day)
   })
+}
+
+function setGradient(difference, element) {
+  if (difference >= 0.4 ) {
+    element.classList.add('amber')
+  } 
+  if (difference > 0.4 && difference <= 0.55) {
+    element.classList.add('darken-1')
+  } 
+  if (difference > 0.55 && difference <= 0.65) {
+    element.classList.add('darken-2')
+  } 
+  if (difference > 0.65 && difference <= 0.75) {
+    element.classList.add('darken-3')
+  } 
+  if (difference > 0.75) {
+    element.classList.add('darken-4')
+  }
 }
 
 function addCalendarFunctions(currentMonth, calendar){

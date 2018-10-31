@@ -7,23 +7,15 @@ let currentYear = today.getFullYear()
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
-  M.AutoInit();
-
+  M.AutoInit()
   let canvas = document.getElementById('canvas')
-  let storageData = JSON.parse(localStorage.getItem('User Entries'))
 
   welcomeUser()
   makeCalendar(currentMonth, canvas)
-  postEntry()
-  //look at entries and set colors for each day
-  //colorCalendar()
-  //console.log("storageData:",storageData[0].day);
-  appendData()
-
+  setEditFormListener()
   addCalendarFunctions(currentMonth, canvas)
 
 
-// Riley's edit day code, NOTE: need to fix current month issue after calendar has been updated
 let editCurrentDate = document.getElementById('editCurrentDate')
 canvas.addEventListener('click', (event) => {
     console.log(event.target)
@@ -50,8 +42,9 @@ function welcomeUser() {
 
 }
 
-function postEntry () {
+function setEditFormListener () {
   let form = document.getElementById('submit')
+
   form.addEventListener('click', (ev) => {
     ev.preventDefault()
     // grab all values from the form
@@ -65,20 +58,22 @@ function postEntry () {
 
     console.log('postData', postData);
     // axios.post that data to the correct backend route
-    appendToday(postData)
     axios.post(`${url}/entries/${userId}`, postData)
     .then((response) => {
       console.log("response:", response)
-      //remake calendar with new data? here with buildCalendar()
 
-      console.log(response)
       let inputDiv = document.getElementById("user-input")
+      let entries = JSON.parse(localStorage.getItem('User Entries'))
+      let newEntry = Object.assign({
+        temp: postData.temp, 
+        flow: postData.flow, 
+        day: postData.date.getDate(), 
+        month: postData.date.getMonth()
+      }, response.data)
       inputDiv.hidden = true
-
-      //remake calendar
-      clearCanvas(canvas)
-      makeCalendar(currentMonth, canvas)
-
+      entries.push(newEntry)
+      localStorage.setItem('User Entries', JSON.stringify(entries))
+      setCalendarDataAttributes()
     })
     .catch((error) => {
       console.log(error)
@@ -86,18 +81,19 @@ function postEntry () {
   })
 }
 
-function makeCalendar (currentMonth, calendar, yearModifier){
+function makeCalendar (currentMonth, calendar, yearModifier = 0){
 
   showCurrentMonth(currentMonth)
   addHeader(calendar)
 
-  for (let r = 0; r < 5; r++) {
+  for (let r = 0; r < 6; r++) {
     let row = document.createElement('div')
 
     row.classList.add('row')
     addDates(currentMonth, row, r, yearModifier)
     calendar.appendChild(row)
   }
+  setCalendarDataAttributes()
 }
 
 function addHeader(calendar) {
@@ -119,44 +115,55 @@ function addHeader(calendar) {
 }
 
 function addDates(currentMonth, row, r, yearModifier = 0) {
-  if (currentMonth === 1 && r === 4) return
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let year = today.getFullYear() + yearModifier
+  let firstDate = new Date(year, currentMonth, 01)
+  let numberOfBlanks = firstDate.getDay()
+  let date = 1 + (r * 7)
+  
+  if (r > 0) {
+    date = date - numberOfBlanks
+  }
 
-  for (let i = 1; i < 8; i++) {
+  for (let i = 1; i < 8; i++) {   
+    if (date > daysInMonths[currentMonth]) {
+      break
+    }
+    
+    if (r === 0) {
+      while (numberOfBlanks > 0) {
+        let blank = document.createElement('div')
+        blank.classList.add('col')
+        blank.classList.add('s1')  
+        row.appendChild(blank)
+        numberOfBlanks--
+        i++
+        continue
+      }
+    }
 
-    let days = i + (r * 7)
-    let d = new Date(year, currentMonth, days)
     let col = document.createElement('div')
 
     col.classList.add('col')
     col.classList.add('s1')
-    col.innerText = d.getDate()
-    col.id = days
+    col.innerText = date
+    col.id = date
     row.appendChild(col)
-
-    if (days > daysInMonths[currentMonth] - 1) {
-      break
-    }
+    date++
   }
 }
 
-function appendToday (data) {
-  let day = document.getElementById(today.getDate())
-  day.setAttribute("temp", data.temp)
-  day.setAttribute("flow", data.flow)
-}
+function setCalendarDataAttributes() {
 
-function appendData () {
+  let entries = JSON.parse(localStorage.getItem('User Entries'))
 
-  let storageData = JSON.parse(localStorage.getItem('User Entries'))
-
-  storageData.forEach(function(element) {
-    let day = document.getElementById(element.day)
-    day.setAttribute("temp", element.temp)
-    day.setAttribute("flow", element.flow)
-
+  entries.forEach(function(entry) {
+    let day = document.getElementById(entry.day)
+    
+    day.setAttribute("data-temp", entry.temp)
+    day.setAttribute("data-flow", entry.flow)
+    day.setAttribute("data-id", entry.id)
   })
 }
 

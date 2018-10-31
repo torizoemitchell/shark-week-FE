@@ -2,12 +2,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();
 
-  let calendarMonth = document.getElementById('currentMonth')
   let currentMonth = today.getMonth()
   let canvas = document.getElementById('canvas')
   let storageData = JSON.parse(localStorage.getItem('User Entries'))
 
-  calendarMonth.innerText = currentMonth
   makeCalendar(currentMonth, canvas)
   postEntry()
   //look at entries and set colors for each day
@@ -83,6 +81,7 @@ function postEntry () {
 
 function makeCalendar (currentMonth, calendar, yearModifier){  
   
+  showCurrentMonth(currentMonth)  
   addHeader(calendar)
   
   for (let r = 0; r < 5; r++) {
@@ -112,6 +111,8 @@ function addHeader(calendar) {
 }
 
 function addDates(currentMonth, row, r, yearModifier = 0) {
+  if (currentMonth === 1 && r === 4) return 
+
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let year = today.getFullYear() + yearModifier
 
@@ -160,8 +161,8 @@ function addCalendarFunctions(currentMonth, calendar){
     clearCanvas(calendar)
     let nextMonth = currentMonth + 1
     if (nextMonth > 11) {
-      nextMonth = 1
-      makeCalendar(prevMonth, calendar, 1)
+      nextMonth = 0
+      makeCalendar(nextMonth, calendar, 1)
     } else {
       makeCalendar(nextMonth, calendar)
     }
@@ -192,4 +193,9 @@ function clearCanvas(canvas){
   while(canvas.hasChildNodes()){
     canvas.removeChild(canvas.lastChild)
   }
+}
+
+function showCurrentMonth(currentMonth) {
+  let calendarMonth = document.getElementById('currentMonth')
+  calendarMonth.innerText = currentMonth + 1
 }

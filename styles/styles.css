@@ -30,12 +30,20 @@ body {
   color: midnightblue;
 }
 
-.input{
+.input {
   border-color: grey;
 }
 
+.card-pic {
+  height: 50px;
+  width: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
-#successMessage{
+#successMessage {
   color: green;
 }
 
@@ -96,7 +104,19 @@ body {
 .input-field input[type=number]:focus {
   color: midnightblue !important;
   border-bottom: 1px solid midnightblue !important;
-  box-shadow: 0 1px 0 0 midnightblue !important;
+  box-shadow: none !important;
+}
+
+.input-field input[type=number]:active {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: none !important;
+}
+
+.input-field input[type=number]:invalid {
+  color: midnightblue !important;
+  border-bottom: 1px solid midnightblue !important;
+  box-shadow: none !important;
 }
 
 .input-field input[type=text]:focus {
@@ -132,6 +152,7 @@ body {
 }
 
 /* button colors */
+
 .button-color {
   background-color: midnightblue !important;
 }

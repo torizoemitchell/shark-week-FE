@@ -43,9 +43,8 @@ function welcomeUser() {
 }
 
 function setEditFormListener () {
-  let form = document.getElementById('submit')
-
-  form.addEventListener('click', (ev) => {
+  let form = document.getElementById('entry-form')
+  form.addEventListener('submit', (ev) => {
     ev.preventDefault()
     // grab all values from the form
     let postData = {}
@@ -65,9 +64,9 @@ function setEditFormListener () {
       let inputDiv = document.getElementById("user-input")
       let entries = JSON.parse(localStorage.getItem('User Entries'))
       let newEntry = Object.assign({
-        temp: postData.temp, 
-        flow: postData.flow, 
-        day: postData.date.getDate(), 
+        temp: postData.temp,
+        flow: postData.flow,
+        day: postData.date.getDate(),
         month: postData.date.getMonth()
       }, response.data)
       inputDiv.hidden = true
@@ -99,7 +98,7 @@ function makeCalendar (currentMonth, calendar){
 }
 
 function addHeader(calendar) {
-  let day = ['Sun', 'M', 'T', 'W', 'Th', 'F', 'Sat']
+  let day = ['Su', 'M', 'T', 'W', 'Th', 'F', 'Sa']
   let header = document.createElement('div')
 
   header.classList.add('row')
@@ -122,21 +121,21 @@ function addDates(currentMonth, row, r) {
   let firstDate = new Date(currentYear, currentMonth, 01)
   let numberOfBlanks = firstDate.getDay()
   let date = 1 + (r * 7)
-  
+
   if (r > 0) {
     date = date - numberOfBlanks
   }
 
-  for (let i = 1; i < 8; i++) {   
+  for (let i = 1; i < 8; i++) {
     if (date > daysInMonths[currentMonth]) {
       break
     }
-    
+
     if (r === 0) {
       while (numberOfBlanks > 0) {
         let blank = document.createElement('div')
         blank.classList.add('col')
-        blank.classList.add('s1')  
+        blank.classList.add('s1')
         row.appendChild(blank)
         numberOfBlanks--
         i++
@@ -161,8 +160,8 @@ function setCalendarDataAttributes() {
 
   entries.forEach(entry => {
       let day = document.getElementById(`${entry.month}-${entry.day}`)
-      if (!day) return 
-      
+      if (!day) return
+
       day.setAttribute("data-temp", entry.temp)
       day.setAttribute("data-flow", entry.flow)
       day.setAttribute("data-id", entry.id)
@@ -260,4 +259,5 @@ function logOut(event) {
       localStorage.clear()
       window.location = `/index.html`
   })
+
 }

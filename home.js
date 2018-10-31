@@ -1,11 +1,17 @@
+let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let today = new Date()
+let currentMonth = today.getMonth()
+let url = "https://shark-week-server.herokuapp.com"
+let userId = localStorage.getItem('User ID')
+
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();
 
-  let currentMonth = today.getMonth()
   let canvas = document.getElementById('canvas')
   let storageData = JSON.parse(localStorage.getItem('User Entries'))
 
+  welcomeUser()
   makeCalendar(currentMonth, canvas)
   postEntry()
   //look at entries and set colors for each day
@@ -18,10 +24,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 // Riley's edit day code, NOTE: need to fix current month issue after calendar has been updated
 let editCurrentDate = document.getElementById('editCurrentDate')
-let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 canvas.addEventListener('click', (event) => {
     console.log(event.target)
-    editCurrentDate.innerHTML = month[currentMonth] + ', ' + event.target.id
+    editCurrentDate.innerHTML = months[currentMonth] + ', ' + event.target.id
   })
 
 })
@@ -32,15 +37,16 @@ canvas.addEventListener('click', (event) => {
 // })
 // end of edit day code
 
-let today = new Date()
-let url = "https://shark-week-server.herokuapp.com"
-let userName = localStorage.getItem('User Name')
-let userId = localStorage.getItem('User ID')
-console.log("name:",userName);
-let welcome = document.getElementById('welcome')
-welcome.innerText = `Good Morning, ${userName}.`
-let currentDate = document.getElementById('currentDate')
-currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
+function welcomeUser() {
+  debugger
+  let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
+  let welcome = document.getElementById('welcome')
+
+  welcome.innerText = `Good Morning, ${userName}.`
+  currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
+  console.log("name:",userName);
+  
+}
 
 function postEntry () {
   let form = document.getElementById('submit')
@@ -48,11 +54,9 @@ function postEntry () {
     ev.preventDefault()
     // grab all values from the form
     let postData = {}
-    let formElements = ev.target.elements
-
     let temp = document.getElementById('temp')
-    let date = currentDate.innerText
     let toggle = document.getElementById('checkbox').checked
+
     postData[temp.id] = temp.value
     postData['date'] = today
     postData['flow'] = toggle
@@ -197,5 +201,5 @@ function clearCanvas(canvas){
 
 function showCurrentMonth(currentMonth) {
   let calendarMonth = document.getElementById('currentMonth')
-  calendarMonth.innerText = currentMonth + 1
+  calendarMonth.innerText = months[currentMonth]
 }

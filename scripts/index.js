@@ -9,7 +9,6 @@ let signUpButton = document.getElementById("sign-up")
 let emailInput = document.getElementById('email')
 let passwordInput = document.getElementById('password')
 let url = "https://shark-week-server.herokuapp.com"
-let clientUrl = "http://localhost:8080"
 
 function register(event) {
   let form = document.getElementById('signup')

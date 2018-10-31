@@ -3,6 +3,7 @@ let today = new Date()
 let currentMonth = today.getMonth()
 let url = "https://shark-week-server.herokuapp.com"
 let userId = localStorage.getItem('User ID')
+let currentYear = today.getFullYear()
 
 document.addEventListener("DOMContentappendToLoaded", (event) => {
   console.log("window loaded")
@@ -41,12 +42,12 @@ function welcomeUser() {
   let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
   let welcome = document.getElementById('welcome')
   let currentDate = document.getElementById('currentDate')
-  
+
   welcome.innerText = `Good Morning, ${userName}.`
   currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
-  
+
   console.log("name:",userName);
-  
+
 }
 
 function postEntry () {
@@ -75,6 +76,7 @@ function postEntry () {
       inputDiv.hidden = true
 
       //remake calendar
+      clearCanvas(canvas)
       makeCalendar(currentMonth, canvas)
 
     })
@@ -84,15 +86,15 @@ function postEntry () {
   })
 }
 
-function makeCalendar (currentMonth, calendar, yearModifier){  
-  
-  showCurrentMonth(currentMonth)  
+function makeCalendar (currentMonth, calendar, yearModifier){
+
+  showCurrentMonth(currentMonth)
   addHeader(calendar)
-  
+
   for (let r = 0; r < 5; r++) {
     let row = document.createElement('div')
-    
-    row.classList.add('row') 
+
+    row.classList.add('row')
     addDates(currentMonth, row, r, yearModifier)
     calendar.appendChild(row)
   }
@@ -101,12 +103,13 @@ function makeCalendar (currentMonth, calendar, yearModifier){
 function addHeader(calendar) {
   let day = ['Sun', 'M', 'T', 'W', 'Th', 'F', 'Sat']
   let header = document.createElement('div')
-  
+
   header.classList.add('row')
+
 
   for (let name of day) {
     let col = document.createElement('div')
-    
+
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = name
@@ -116,7 +119,7 @@ function addHeader(calendar) {
 }
 
 function addDates(currentMonth, row, r, yearModifier = 0) {
-  if (currentMonth === 1 && r === 4) return 
+  if (currentMonth === 1 && r === 4) return
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let year = today.getFullYear() + yearModifier
@@ -130,7 +133,7 @@ function addDates(currentMonth, row, r, yearModifier = 0) {
 
     let date = i + (r * 7)
     let col = document.createElement('div')
-    
+
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
@@ -164,7 +167,7 @@ function appendData () {
 function addCalendarFunctions(currentMonth, calendar){
   //next
   let nextMonthButton = document.getElementById("next-month")
-  
+
   nextMonthButton.addEventListener('click', (event) =>{
     event.preventDefault()
     clearCanvas(calendar)
@@ -177,16 +180,17 @@ function addCalendarFunctions(currentMonth, calendar){
     }
     //for tracking purposes
     currentMonth = nextMonth
+
   })
-  
+
   //previous
   let prevMonthButton = document.getElementById("prev-month")
-  
+
   prevMonthButton.addEventListener('click', (event) =>{
     event.preventDefault()
     clearCanvas(calendar)
     let prevMonth = currentMonth - 1
-    
+
     if (prevMonth < 0) {
       prevMonth = 11
       makeCalendar(prevMonth, calendar, -1)
@@ -206,5 +210,5 @@ function clearCanvas(canvas){
 
 function showCurrentMonth(currentMonth) {
   let calendarMonth = document.getElementById('currentMonth')
-  calendarMonth.innerText = months[currentMonth]
+  calendarMonth.innerText = `${months[currentMonth]} ${currentYear}`
 }

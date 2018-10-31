@@ -10,26 +10,26 @@ let setSubmitForm = document.getElementById('setSubmitForm')
 
 let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
 let userEmail = localStorage.getItem('User Email').replace(/['"]+/g, '')
-let userCycle_Length = localStorage.getItem('User Cycle_Length')
+let userCycle_Length = localStorage.getItem('User Cycle_Length').replace(/['"]+/g, '')
 let userId = localStorage.getItem('User ID')
 
 
 setNavButton.addEventListener('click', () => {
-  console.log(userId)
+  console.log(userCycle_Length.parse)
   setName.value = userName
   setEmail.value = userEmail
   setCycle_length.value = userCycle_Length
 })
 
 setHeadButton.addEventListener('click', () => {
-  console.log(userId)
+  console.log(userCycle_Length)
   setName.value = userName
   setEmail.value = userEmail
   setCycle_length.value = userCycle_Length
 })
 
 setSubmitForm.addEventListener('click', (ev) => {
-  ev.preventDefault()
+  console.log(userCycle_Length);
   localStorage.setItem('User Name', JSON.stringify(setName.value))
   localStorage.setItem('User Cycle_Length', JSON.stringify(setCycle_length.value))
   localStorage.setItem('User Email', JSON.stringify(setEmail.value))

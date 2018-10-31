@@ -96,7 +96,7 @@ function makeCalendar (currentMonth, calendar){
 }
 
 function addHeader(calendar) {
-  let day = ['Sun', 'M', 'T', 'W', 'Th', 'F', 'Sat']
+  let day = ['Su', 'M', 'T', 'W', 'Th', 'F', 'Sa']
   let header = document.createElement('div')
 
   header.classList.add('row')
@@ -214,9 +214,6 @@ function clearCanvas(canvas){
 
 function showCurrentMonth(month, year) {
   let calendarMonth = document.getElementById('currentMonth')
-<<<<<<< HEAD
-  calendarMonth.innerText = months[currentMonth]
-=======
   calendarMonth.innerText = `${months[month]} ${year}`
 }
 
@@ -234,5 +231,5 @@ function logOut(event) {
       localStorage.clear()
       window.location = `/index.html`
   })
->>>>>>> e8e832b66dd8d93b794ea1c4a164569ed3ee90b7
+
 }

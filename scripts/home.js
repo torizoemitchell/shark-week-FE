@@ -183,6 +183,9 @@ function colorCalendar() {
 function setGradient(difference, element) {
   if (difference >= 0.4 ) {
     element.classList.add('amber')
+  } else {
+    element.classList.add('blue')
+    element.classList.add('lighten-4')
   } 
   if (difference > 0.4 && difference <= 0.55) {
     element.classList.add('darken-1')

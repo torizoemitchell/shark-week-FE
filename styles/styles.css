@@ -24,6 +24,10 @@ body {
   color: lightgrey;
 }
 
+#setNavButton {
+  color: midnightblue;
+}
+
 .form {
   margin-top: 50px;
   background-color: white;

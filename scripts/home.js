@@ -5,7 +5,7 @@ let url = "https://shark-week-server.herokuapp.com"
 let userId = localStorage.getItem('User ID')
 let currentYear = today.getFullYear()
 
-document.addEventListener("DOMContentappendToLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();
 
@@ -86,12 +86,12 @@ function postEntry () {
   })
 }
 
-function makeCalendar (currentMonth, calendar, yearModifier){
+function makeCalendar (currentMonth, calendar, yearModifier = 0){
 
   showCurrentMonth(currentMonth)
   addHeader(calendar)
 
-  for (let r = 0; r < 5; r++) {
+  for (let r = 0; r < 6; r++) {
     let row = document.createElement('div')
 
     row.classList.add('row')
@@ -119,37 +119,53 @@ function addHeader(calendar) {
 }
 
 function addDates(currentMonth, row, r, yearModifier = 0) {
-  if (currentMonth === 1 && r === 4) return
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let year = today.getFullYear() + yearModifier
   let firstDate = new Date(year, currentMonth, 01)
-  // let offset = firstDate.getDay()
+  let numberOfBlanks = firstDate.getDay()
+  let date = 1 + (r * 7)
+  
+  if (r > 0) {
+    date = date - numberOfBlanks
+  }
 
-  // for difference between first day of the month and 1 add blanks 
-  // 
-  // 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 1; i < 8; i++) {   
+    if (date > daysInMonths[currentMonth]) {
+      break
+    }
+    
+    if (r === 0) {
+      while (numberOfBlanks > 0) {
+        let blank = document.createElement('div')
+        blank.classList.add('col')
+        blank.classList.add('s1')  
+        row.appendChild(blank)
+        numberOfBlanks--
+        i++
+        continue
+      }
+    }
 
-    let date = i + (r * 7)
     let col = document.createElement('div')
 
     col.classList.add('col')
     col.classList.add('s1')
+
+
     col.innerText = date
     col.id = date
     row.appendChild(col)
-
-    if (date > daysInMonths[currentMonth] - 1) {
-      break
-    }
+    date++
   }
 }
 
 function appendToday (data) {
   let day = document.getElementById(today.getDate())
-  day.setAttribute("temp", data.temp)
-  day.setAttribute("flow", data.flow)
+  
+  day.setAttribute("data-temp", data.temp)
+  day.setAttribute("data-flow", data.flow)
+  day.setAttribute("data-id", data.id)
 }
 
 function appendData () {

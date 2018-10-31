@@ -74,6 +74,7 @@ function setEditFormListener () {
       entries.push(newEntry)
       localStorage.setItem('User Entries', JSON.stringify(entries))
       setCalendarDataAttributes()
+      colorCalendar()
     })
     .catch((error) => {
       console.log(error)
@@ -94,6 +95,7 @@ function makeCalendar (currentMonth, calendar){
     calendar.appendChild(row)
   }
   setCalendarDataAttributes()
+  colorCalendar()
 }
 
 function addHeader(calendar) {
@@ -157,7 +159,7 @@ function setCalendarDataAttributes() {
 
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
-  entries.forEach(function(entry) {
+  entries.forEach(entry => {
       let day = document.getElementById(`${entry.month}-${entry.day}`)
       if (!day) return 
       
@@ -165,6 +167,32 @@ function setCalendarDataAttributes() {
       day.setAttribute("data-flow", entry.flow)
       day.setAttribute("data-id", entry.id)
       })
+}
+
+function colorCalendar() {
+  let entries = JSON.parse(localStorage.getItem('User Entries'))
+
+  entries.forEach(entry => {
+    let day = document.getElementById(`${entry.month}-${entry.day}`)
+    if (!day) return
+    
+    let tempDifference = day.dataset.temp - 98.60 
+    if (tempDifference >= 0.4 ) {
+      day.classList.add('amber')
+    } else if (0.4 < tempDifference <= 0.55) {
+      day.classList.add('amber')
+      day.classList.add('darken-1')
+    } else if (0.55 < tempDifference <= 0.65) {
+      day.classList.add('amber')
+      day.classList.add('darken-2')
+    } else if (0.65 < tempDifference <= 0.75) {
+      day.classList.add('amber')
+      day.classList.add('darken-3')
+    } else if (tempDifference > 0.75) {
+      day.classList.add('amber')
+      day.classList.add('darken-4')
+    }
+  })
 }
 
 function addCalendarFunctions(currentMonth, calendar){

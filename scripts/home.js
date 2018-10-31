@@ -8,11 +8,12 @@ let currentYear = today.getFullYear()
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit()
-  let canvas = document.getElementById('canvas')
 
+  let canvas = document.getElementById('canvas')
   welcomeUser()
   makeCalendar(currentMonth, canvas)
   setEditFormListener()
+  editEntry()
   addCalendarFunctions(currentMonth, canvas)
   logOut()
 
@@ -20,15 +21,10 @@ let editCurrentDate = document.getElementById('editCurrentDate')
 canvas.addEventListener('click', (event) => {
     console.log(event.target)
     editCurrentDate.innerHTML = months[currentMonth] + ', ' + event.target.id.split('-')[1]
+    editCurrentDate.setAttribute("data-id", event.target.id)
   })
 
 })
-
-// let editSubmit = document.getElementById('editSubmit')
-// editSubmit.addEventListener('click', function() => {
-//   if
-// })
-// end of edit day code
 
 function welcomeUser() {
   let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
@@ -37,47 +33,72 @@ function welcomeUser() {
 
   welcome.innerText = `Good Morning, ${userName}.`
   currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
+  currentDate.setAttribute('data-id', `${today.getMonth()}-${today.getDate()}` )
 
   console.log("name:",userName);
 
 }
 
 function setEditFormListener () {
-  let form = document.getElementById('submit')
+  let button = document.getElementById('submit')
 
-  form.addEventListener('click', (ev) => {
+  button.addEventListener('click', (ev) => {
     ev.preventDefault()
-    // grab all values from the form
+    // grab all values from the button
     let postData = {}
     let temp = document.getElementById('temp')
     let toggle = document.getElementById('checkbox').checked
+
+    let entryModalDate = document.getElementById('currentDate')
+    let emdDataId = entryModalDate.getAttribute('data-id')
+    let dateElement = document.getElementById(emdDataId)
+    let dateID = dateElement.dataset.id
 
     postData[temp.id] = temp.value
     postData['date'] = today
     postData['flow'] = toggle
 
     console.log('postData', postData);
-    // axios.post that data to the correct backend route
-    axios.post(`${url}/entries/${userId}`, postData)
-    .then((response) => {
-      console.log("response:", response)
+    if (dateID) {
+      //axios.put if editing existing entry
+      put(postData, dateID)
+    } else {
+      // axios.post that data to the correct backend route
+      post(postData)
+    }
+  })
+}
 
-      let inputDiv = document.getElementById("user-input")
-      let entries = JSON.parse(localStorage.getItem('User Entries'))
-      let newEntry = Object.assign({
-        temp: postData.temp, 
-        flow: postData.flow, 
-        day: postData.date.getDate(), 
-        month: postData.date.getMonth()
-      }, response.data)
-      inputDiv.hidden = true
-      entries.push(newEntry)
-      localStorage.setItem('User Entries', JSON.stringify(entries))
-      setCalendarDataAttributes()
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+function editEntry () {
+  let button = document.getElementById('editSubmit')
+
+  button.addEventListener('click', (ev) => {
+    ev.preventDefault()
+
+    let postData = {}
+    let temp = document.getElementById('editTemp')
+    let toggle = document.getElementById('editCheckbox').checked
+
+    let entryModalDate = document.getElementById('editCurrentDate')
+    let emdDataId = entryModalDate.getAttribute('data-id')
+    let dateElement = document.getElementById(emdDataId)
+    let dateID = dateElement.dataset.id
+
+    let [month, day] = emdDataId.split('-')
+    let correct = new Date(currentYear, month, day)
+
+    postData['temp'] = temp.value
+    postData['date'] = correct
+    postData['flow'] = toggle
+
+    console.log('postData', postData);
+    if (dateID) {
+      //axios.put if editing existing entry
+      put(postData, dateID)
+    } else {
+      // axios.post that data to the correct backend route
+      post(postData)
+    }
   })
 }
 
@@ -120,21 +141,21 @@ function addDates(currentMonth, row, r) {
   let firstDate = new Date(currentYear, currentMonth, 01)
   let numberOfBlanks = firstDate.getDay()
   let date = 1 + (r * 7)
-  
+
   if (r > 0) {
     date = date - numberOfBlanks
   }
 
-  for (let i = 1; i < 8; i++) {   
+  for (let i = 1; i < 8; i++) {
     if (date > daysInMonths[currentMonth]) {
       break
     }
-    
+
     if (r === 0) {
       while (numberOfBlanks > 0) {
         let blank = document.createElement('div')
         blank.classList.add('col')
-        blank.classList.add('s1')  
+        blank.classList.add('s1')
         row.appendChild(blank)
         numberOfBlanks--
         i++
@@ -159,8 +180,9 @@ function setCalendarDataAttributes() {
 
   entries.forEach(function(entry) {
       let day = document.getElementById(`${entry.month}-${entry.day}`)
-      if (!day) return 
-      
+
+      if (!day) return
+
       day.setAttribute("data-temp", entry.temp)
       day.setAttribute("data-flow", entry.flow)
       day.setAttribute("data-id", entry.id)
@@ -231,5 +253,54 @@ function logOut(event) {
       ev.preventDefault()
       localStorage.clear()
       window.location = `/index.html`
+  })
+}
+
+function put(postData, entryID) {
+  console.log("this is a put");
+
+  axios.put(`${url}/entries/${entryID}`,postData)
+  .then((response) => {
+    console.log("response:", response)
+
+    let inputDiv = document.getElementById("user-input")
+    let entries = JSON.parse(localStorage.getItem('User Entries'))
+    let newEntry = Object.assign({
+      temp: postData.temp,
+      flow: postData.flow,
+      day: postData.date.getDate(),
+      month: postData.date.getMonth()
+    }, response.data)
+    inputDiv.hidden = true
+    entries.push(newEntry)
+    localStorage.setItem('User Entries', JSON.stringify(entries))
+    setCalendarDataAttributes()
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+function post(postData) {
+  console.log('this is a post');
+  axios.post(`${url}/entries/${userId}`, postData)
+  .then((response) => {
+    console.log("response:", response)
+
+    let inputDiv = document.getElementById("user-input")
+    let entries = JSON.parse(localStorage.getItem('User Entries'))
+    let newEntry = Object.assign({
+      temp: postData.temp,
+      flow: postData.flow,
+      day: postData.date.getDate(),
+      month: postData.date.getMonth()
+    }, response.data)
+    inputDiv.hidden = true
+    entries.push(newEntry)
+    localStorage.setItem('User Entries', JSON.stringify(entries))
+    setCalendarDataAttributes()
+  })
+  .catch((error) => {
+    console.log(error)
   })
 }

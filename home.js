@@ -73,8 +73,6 @@ function makeCalendar (currentMonth, calendar){
   for (let r = 0; r < 5; r++) {
     var row = document.createElement('div')
     row.classList.add('row')
-    row.classList.add('row')
-
     for (let i = 1; i < 8; i++) {
       let dayInfo = document.createElement('div')
       let days = i + (r * 7)

@@ -178,17 +178,17 @@ function colorCalendar() {
     let tempDifference = day.dataset.temp - 98.60 
     if (tempDifference >= 0.4 ) {
       day.classList.add('amber')
-    } else if (0.4 < tempDifference <= 0.55) {
-      day.classList.add('amber')
+    } 
+    if (0.4 < tempDifference <= 0.55) {
       day.classList.add('darken-1')
-    } else if (0.55 < tempDifference <= 0.65) {
-      day.classList.add('amber')
+    } 
+    if (0.55 < tempDifference <= 0.65) {
       day.classList.add('darken-2')
-    } else if (0.65 < tempDifference <= 0.75) {
-      day.classList.add('amber')
+    } 
+    if (0.65 < tempDifference <= 0.75) {
       day.classList.add('darken-3')
-    } else if (tempDifference > 0.75) {
-      day.classList.add('amber')
+    } 
+    if (tempDifference > 0.75) {
       day.classList.add('darken-4')
     }
   })

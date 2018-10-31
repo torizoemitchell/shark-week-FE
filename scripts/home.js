@@ -51,8 +51,8 @@ function welcomeUser() {
 }
 
 function postEntry () {
-  let form = document.getElementById('submit')
-  form.addEventListener('click', (ev) => {
+  let form = document.getElementById('entry-form')
+  form.addEventListener('submit', (ev) => {
     ev.preventDefault()
     // grab all values from the form
     let postData = {}

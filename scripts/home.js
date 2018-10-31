@@ -4,7 +4,7 @@ let currentMonth = today.getMonth()
 let url = "https://shark-week-server.herokuapp.com"
 let userId = localStorage.getItem('User ID')
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentappendToLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();
 
@@ -120,20 +120,24 @@ function addDates(currentMonth, row, r, yearModifier = 0) {
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let year = today.getFullYear() + yearModifier
+  let firstDate = new Date(year, currentMonth, 01)
+  // let offset = firstDate.getDay()
 
-  for (let i = 1; i < 8; i++) {
+  // for difference between first day of the month and 1 add blanks 
+  // 
+  // 
+  for (let i = 0; i < 7; i++) {
 
-    let days = i + (r * 7)
-    let d = new Date(year, currentMonth, days)
+    let date = i + (r * 7)
     let col = document.createElement('div')
     
     col.classList.add('col')
     col.classList.add('s1')
-    col.innerText = d.getDate()
-    col.id = days
+    col.innerText = date
+    col.id = date
     row.appendChild(col)
 
-    if (days > daysInMonths[currentMonth] - 1) {
+    if (date > daysInMonths[currentMonth] - 1) {
       break
     }
   }

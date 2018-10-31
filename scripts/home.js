@@ -159,11 +159,14 @@ function setCalendarDataAttributes() {
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   entries.forEach(function(entry) {
-    let day = document.getElementById(entry.day)
-    
-    day.setAttribute("data-temp", entry.temp)
-    day.setAttribute("data-flow", entry.flow)
-    day.setAttribute("data-id", entry.id)
+    if (currentMonth === entry.month) {
+      let day = document.getElementById(entry.day)
+      if (day) {
+        day.setAttribute("data-temp", entry.temp)
+        day.setAttribute("data-flow", entry.flow)
+        day.setAttribute("data-id", entry.id)
+      }
+    }
   })
 }
 

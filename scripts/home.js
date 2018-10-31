@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   makeCalendar(currentMonth, canvas)
   setEditFormListener()
   addCalendarFunctions(currentMonth, canvas)
-
+  logOut()
 
 let editCurrentDate = document.getElementById('editCurrentDate')
 canvas.addEventListener('click', (event) => {
@@ -216,4 +216,20 @@ function clearCanvas(canvas){
 function showCurrentMonth(month, year) {
   let calendarMonth = document.getElementById('currentMonth')
   calendarMonth.innerText = `${months[month]} ${year}`
+}
+
+function logOut(event) {
+  let link1 = document.getElementById('logout')
+  link1.addEventListener('click', (ev) => {
+      ev.preventDefault()
+      localStorage.clear()
+      window.location = `/index.html`
+      })
+
+  let link2 = document.getElementById('mobileLogout')
+      link2.addEventListener('click', (ev) => {
+      ev.preventDefault()
+      localStorage.clear()
+      window.location = `/index.html`
+  })
 }

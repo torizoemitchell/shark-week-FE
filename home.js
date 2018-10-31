@@ -1,17 +1,18 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();
-  currentDate
+
   let calendarMonth = document.getElementById('currentMonth')
   let currentMonth = today.getMonth()
-  calendarMonth.innerText = currentMonth
   let canvas = document.getElementById('canvas')
+  let storageData = JSON.parse(localStorage.getItem('User Entries'))
+
+  calendarMonth.innerText = currentMonth
   makeCalendar(currentMonth, canvas)
   postEntry()
   //look at entries and set colors for each day
   //colorCalendar()
-  let storageData = JSON.parse(localStorage.getItem('User Entries'))
-  console.log("storageData:",storageData[0].day);
+  //console.log("storageData:",storageData[0].day);
   appendData()
 
   addCalendarFunctions(currentMonth, canvas)
@@ -80,48 +81,58 @@ function postEntry () {
   })
 }
 
-function makeCalendar (currentMonth, calendar){
-  let day = ['Sun', 'M', 'T', 'W', 'Tr', 'F', 'Sat'];
-  let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+function makeCalendar (currentMonth, calendar, yearModifier){  
+  
+  addHeader(calendar)
+  
+  for (let r = 0; r < 5; r++) {
+    let row = document.createElement('div')
+    
+    row.classList.add('row') 
+    addDates(currentMonth, row, r, yearModifier)
+    calendar.appendChild(row)
+  }
+}
+
+function addHeader(calendar) {
+  let day = ['Sun', 'M', 'T', 'W', 'Th', 'F', 'Sat']
   let header = document.createElement('div')
+  
   header.classList.add('row')
 
-  // add days as headers
   for (let name of day) {
     let col = document.createElement('div')
+    
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = name
     header.appendChild(col)
   }
   calendar.appendChild(header)
+}
 
-  for (let r = 0; r < 5; r++) {
-    var row = document.createElement('div')
-    row.classList.add('row')
-    for (let i = 1; i < 8; i++) {
-      let dayInfo = document.createElement('div')
-      let days = i + (r * 7)
-      let d = new Date(2018, currentMonth, days)
-      // console.log(d);
-      dayInfo.classList.add('col')
-      dayInfo.classList.add('s1')
-      // dayInfo.innerText = day[d.getDay()]
-      // dayInfo.innerHTML += "<br>"
-      dayInfo.innerText += d.getDate()
-      dayInfo.innerHTML += "<br>"
-      // dayInfo.innerText += month[d.getMonth()] + ' ' + (1900 + d.getYear())
-      dayInfo.setAttribute("id", days)
-      row.appendChild(dayInfo)
-      console.log(month[currentMonth])
-      if (days > daysInMonths[currentMonth] - 1) {
-        break
-      }
+function addDates(currentMonth, row, r, yearModifier = 0) {
+  let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  let year = today.getFullYear() + yearModifier
+
+  for (let i = 1; i < 8; i++) {
+
+    let days = i + (r * 7)
+    let d = new Date(year, currentMonth, days)
+    let col = document.createElement('div')
+    
+    col.classList.add('col')
+    col.classList.add('s1')
+    col.innerText = d.getDate()
+    col.id = days
+    row.appendChild(col)
+
+    if (days > daysInMonths[currentMonth] - 1) {
+      break
     }
-    calendar.appendChild(row)
   }
 }
+
 function appendToday (data) {
   let day = document.getElementById(today.getDate())
   day.setAttribute("temp", data.temp)
@@ -143,21 +154,35 @@ function appendData () {
 function addCalendarFunctions(currentMonth, calendar){
   //next
   let nextMonthButton = document.getElementById("next-month")
+  
   nextMonthButton.addEventListener('click', (event) =>{
     event.preventDefault()
     clearCanvas(calendar)
     let nextMonth = currentMonth + 1
-    makeCalendar(nextMonth, calendar)
+    if (nextMonth > 11) {
+      nextMonth = 1
+      makeCalendar(prevMonth, calendar, 1)
+    } else {
+      makeCalendar(nextMonth, calendar)
+    }
     //for tracking purposes
     currentMonth = nextMonth
   })
+  
   //previous
   let prevMonthButton = document.getElementById("prev-month")
+  
   prevMonthButton.addEventListener('click', (event) =>{
     event.preventDefault()
     clearCanvas(calendar)
     let prevMonth = currentMonth - 1
-    makeCalendar(prevMonth, calendar)
+    
+    if (prevMonth < 0) {
+      prevMonth = 11
+      makeCalendar(prevMonth, calendar, -1)
+    } else {
+      makeCalendar(prevMonth, calendar)
+    }
     //for tracking purposes
     currentMonth = prevMonth
   })

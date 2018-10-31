@@ -34,7 +34,7 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down nav-text">
         <li><a href="">Log In</a></li>
-        <li><a href="">Sign Up</a></li>
+        <li><a href="#signup" class = "modal-trigger">Sign Up</a></li>
 
       </ul>
     </div>
@@ -45,7 +45,7 @@
       <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
     </div>
     <li><a class="nav-text" href="">Log In</a></li>
-    <li><a class="nav-text" href="">Sign Up</a></li>
+    <li><a class="nav-text modal-trigger" href="#signup">Sign Up</a></li>
   </ul>
 
   <div class="container">
@@ -73,11 +73,11 @@
         </div>
         <div class="row">
           <div class="col s12 center-align">
-            <a class="waves-effect waves-light btn-large button-color" id="login" >Login</a><br>
+            <a class="waves-effect waves-light btn-large button-color" id="login">Login</a><br>
 
           </div>
         </div>
-      <!-- signup form -->
+        <!-- signup form -->
         <div class="row">
           <div class="col s12 center-align">
             <span class="label label-default" id="first-time">First Time?</span><br>
@@ -86,48 +86,107 @@
         </div>
 
       </form>
-    </div>
-  </div>
-
-
-  <!-- modal -->
-  <div id="signup" class="modal">
-    <div class="modal-content nav-text">
-      <h4>Welcome to Tempo!</h4>
-      <h7>Please Register Here:</h7>
-
-      <form id="registration">
-        <div class="input-field">
-          <label for="name">Name</label>
-          <input type="text" name="name" id="regName" required><br>
+      <div class="col s8 offset-s2 form valign">
+        <h3 class="center-align">Using Tempo</h3>
+        <h6 class="center-align">How to gain Ovulation Intelligence by using Tempo:</h6>
+        <div class="row">
+          <div class="col s12 offset sm6">
+            <div class="card">
+              <div class="card-image">
+                <img src="../images/alarm.jpg">
+              </div>
+              <br>
+              <div class="card-title center-align">Your Morning Routine</div>
+              <div class="card-content">
+                <p>Every morning, record your basal body temperature and record it using Tempo. Use a thermometer specific to this purpose that is accurate to 2 decimal places. Measure your temperature before getting out of bed each morning, as movement will raise your body temperature above basal body temp.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="input-field">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="regEmail" required><br>
+        <div class="row">
+          <div class="col s12 offset sm6">
+            <div class="card">
+              <div class="card-image">
+                <img src="../images/phone.jpg">
+              </div>
+              <br>
+              <div class="card-title center-align">Understanding The Risks</div>
+              <div class="card-content">
+                <p>Tempo uses the "Temperature Method" which detects changes in basal body temperature as an indication of ovulation. This can help predict a fertile window during which to avoid sex or use protection in order to prevent pregnancy. Planned Parenthood states this method is 78-88% effective, assuming each cycle is like the last, the protection that is used does not fail, and that the method is used perfectly every time. In reality, the effectiveness may deviate because of these assumptions. For this reason, Tempo should be used only to gain Ovulation Intellegence and is recommended as a supplement to other forms of birth control to prevent pregnancy effectively. This method does not protect against STI's (Sexually Transmitted Infections). </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="input-field">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="regPassword" required><br>
+        <div class="row">
+          <div class="col s12 offset sm6">
+            <div class="card">
+              <div class="card-image">
+                <img src="../images/cheers.jpg">
+              </div>
+              <br>
+              <div class="card-title center-align">Factors That Impact Accuracy</div>
+              <div class="card-content">
+                <p>For most accurate use, be aware of other factors that may impact your basal body temperature such as alcohol use, certain medications, or sickness. When these are a factor, it is recommended that you do not input your body temperature data for that day.  </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="input-field">
-          <label for="cycle_length">Cycle Length in Days (optional)</label>
-          <input type="number" name="cycle_length" id="regCycle_length"><br>
+        <div class="row">
+          <div class="col s12 offset sm6">
+            <div class="card">
+              <div class="card-image">
+                <img src="../images/drugs.jpg">
+              </div>
+              <br>
+              <div class="card-title center-align">Tempo's Method May Not Be Right For You</div>
+              <div class="card-content">
+                <p>Do not use this method if you have a medical condition where pregnancy would be associated with a significant risk to your health, if you are taking hormonal birth control, if you have highly irregular cycles, or if you are post menopausal.</p>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <br>
-        <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="submit-form" name="action">Submit<i class="material-icons right">send</i>
-        </button>
-        <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
-      </form>
-      <br>
-      <div id="successMessage">
       </div>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+
+
+    <!-- modal -->
+    <div id="signup" class="modal">
+      <div class="modal-content nav-text">
+        <h4>Welcome to Tempo!</h4>
+        <h7>Please Register Here:</h7>
+
+        <form id="registration">
+          <div class="input-field">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="regName" required><br>
+          </div>
+          <div class="input-field">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="regEmail" required><br>
+          </div>
+          <div class="input-field">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="regPassword" required><br>
+          </div>
+          <div class="input-field">
+            <label for="cycle_length">Cycle Length in Days (optional)</label>
+            <input type="number" name="cycle_length" id="regCycle_length"><br>
+          </div>
+
+          <br>
+          <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="submit-form" name="action">Submit<i class="material-icons right">send</i>
+        </button>
+          <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
+        </form>
+        <br>
+        <div id="successMessage">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+      </div>
     </div>
-  </div>
-  <script src="scripts/index.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
   M.AutoInit();

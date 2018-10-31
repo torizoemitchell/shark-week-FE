@@ -33,7 +33,7 @@
       <a href="#!" class="brand-logo brand">Tempo</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="">Log Out</a></li>
+        <li><a id="logout" href="">Log Out</a></li>
         <li><a id="setHeadButton" class="modal-trigger" href="#settings">Settings</a></li>
       </ul>
     </div>
@@ -43,10 +43,8 @@
     <div class="background center-align">
       <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
     </div>
-    <li><a class="nav-text" href="" id>Log Out</a></li>
+    <li><a class="nav-text" id="mobileLogout" href="" id>Log Out</a></li>
     <li><a id="setNavButton" class="modal-trigger" href="#settings">Settings</a></li>
-
-
   </ul>
 
   <div class="container" id="user-input">
@@ -63,7 +61,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12 center-align">
-            <input id="temp" type="float" class="validate input" required autofocus>
+            <input id="temp" type="number" class="validate input" Style="text-align: center" pattern="\d\d" data-error="Please Use 2 decimal places." min="97.00" max="99.99" required autofocus>
           </div>
         </div>
         <!-- Switch -->
@@ -81,7 +79,9 @@
         </div>
         <div class="row">
           <div class="col s12 center-align">
-            <a class="waves-effect waves-light btn-large button-color" id="submit">Submit</a>
+            <!-- <a type="submit" class="waves-effect waves-light btn-large button-color" id="submit">Submit</a> -->
+            <button class="btn waves-effect waves-light button-color validate" value="Submit" type="submit" id="submit" name="action">Submit<i class="material-icons right">send</i>
+            </button>
           </div>
         </div>
       </form>
@@ -109,7 +109,8 @@
         <div class="container">
           <a class="modal-trigger" href="#editEntry" id="edit-entry">
             <div class="row">
-              <div class="col s12">
+              <div class="col s3"></div>
+              <div class="col s9">
                 <div id='canvas'>
                   <!-- canvas here -->
                 </div>

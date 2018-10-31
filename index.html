@@ -59,15 +59,17 @@
           <span class=" col s12 center-align">Tempo</span>
           <span class=" col s12 center-align">Ovulation Intelligence</span>
         </div>
+        <div id="successMessage">
+        </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="email" class="validate" required>
+            <input id="email" type="email" class="validate input" required>
             <label for="email">Email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" class="validate" required>
+            <input id="password" type="password" class="validate input" required>
             <label for="password">Password</label>
           </div>
         </div>
@@ -179,11 +181,9 @@
           <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
         </form>
         <br>
-        <div id="successMessage">
-        </div>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text" id="close-signup">Close</a>
       </div>
     </div>
     <script src="scripts/index.js"></script>

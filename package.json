@@ -24,6 +24,7 @@
     "scripts": {}
   },
   "dependencies": {
-    "lite-server": "^2.4.0"
+    "lite-server": "^2.4.0",
+    "live-server": "^1.2.0"
   }
 }

@@ -36,7 +36,7 @@ function welcomeUser() {
   let currentDate = document.getElementById('currentDate')
 
   welcome.innerText = `Good Morning, ${userName}.`
-  currentDate.innerText = `${today.getMonth() + 1}/${today.getDate()}`
+  currentDate.innerText = `${months[today.getMonth()]} ${today.getDate()}`
 
   console.log("name:",userName);
 

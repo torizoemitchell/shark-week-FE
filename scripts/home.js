@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   M.AutoInit()
   welcomeUser()
   makeCalendar(currentMonth, canvas)
+  deleteEntry()
   setCanvasListener(canvas)
   setSubmitListener()
   setEditListener()
-  setCalendarListners(currentMonth, canvas)
+  setCalendarListeners(currentMonth, canvas)
   setLogoutListeners()
 })
 
@@ -39,12 +40,13 @@ function welcomeUser() {
 
   welcome.innerText = `Good Morning, ${userName}.`
 
- currentDate.innerText = `${months[today.getMonth()]} ${today.getDate()}`
-  currentDate.setAttribute('data-id', `${today.getMonth()}-${today.getDate()}` )
+  currentDate.innerText = `${months[today.getMonth()]} ${today.getDate()}`
+  currentDate.setAttribute('data-id', `${today.getMonth()}-${today.getDate()}`)
 
-  console.log("name:",userName);
+  console.log("name:", userName);
 
 }
+
 
 function setSubmitListener () {
   let button = document.getElementById('submit')
@@ -77,6 +79,7 @@ function setSubmitListener () {
   })
 }
 
+
 function setEditListener () {
   let button = document.getElementById('editSubmit')
 
@@ -99,6 +102,8 @@ function setEditListener () {
     postData['date'] = correct
     postData['flow'] = toggle
 
+
+
     console.log('postData', postData);
     if (dateID) {
       //axios.put if editing existing entry
@@ -110,7 +115,7 @@ function setEditListener () {
   })
 }
 
-function makeCalendar (currentMonth, calendar){
+function makeCalendar(currentMonth, calendar) {
 
   showCurrentMonth(currentMonth, currentYear)
   addHeader(calendar)
@@ -188,14 +193,14 @@ function setCalendarDataAttributes() {
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   entries.forEach(entry => {
-      let day = document.getElementById(`${entry.month}-${entry.day}`)
+    let day = document.getElementById(`${entry.month}-${entry.day}`)
 
-      if (!day) return
+    if (!day) return
 
-      day.setAttribute("data-temp", entry.temp)
-      day.setAttribute("data-flow", entry.flow)
-      day.setAttribute("data-id", entry.id)
-      })
+    day.setAttribute("data-temp", entry.temp)
+    day.setAttribute("data-flow", entry.flow)
+    day.setAttribute("data-id", entry.id)
+  })
 }
 
 function colorCalendar() {
@@ -204,38 +209,39 @@ function colorCalendar() {
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
-    
-    let tempDifference = day.dataset.temp - 98.60 
+
+    let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
   })
 }
 
 function setGradient(difference, element) {
-  if (difference >= 0.4 ) {
+  if (difference >= 0.4) {
     element.classList.add('amber')
   } else {
     element.classList.add('blue')
     element.classList.add('lighten-4')
-  } 
+  }
   if (difference > 0.4 && difference <= 0.55) {
     element.classList.add('darken-1')
-  } 
+  }
   if (difference > 0.55 && difference <= 0.65) {
     element.classList.add('darken-2')
-  } 
+  }
   if (difference > 0.65 && difference <= 0.75) {
     element.classList.add('darken-3')
-  } 
+  }
   if (difference > 0.75) {
     element.classList.add('darken-4')
   }
 }
 
-function setCalendarListners(currentMonth, calendar){
+
+function setCalendarListeners(currentMonth, calendar){
   //next
   let nextMonthButton = document.getElementById("next-month")
 
-  nextMonthButton.addEventListener('click', (event) =>{
+  nextMonthButton.addEventListener('click', (event) => {
     event.preventDefault()
     clearCanvas(calendar)
     let nextMonth = currentMonth + 1
@@ -254,7 +260,7 @@ function setCalendarListners(currentMonth, calendar){
   //previous
   let prevMonthButton = document.getElementById("prev-month")
 
-  prevMonthButton.addEventListener('click', (event) =>{
+  prevMonthButton.addEventListener('click', (event) => {
     event.preventDefault()
     clearCanvas(calendar)
     let prevMonth = currentMonth - 1
@@ -271,8 +277,8 @@ function setCalendarListners(currentMonth, calendar){
   })
 }
 
-function clearCanvas(canvas){
-  while(canvas.hasChildNodes()){
+function clearCanvas(canvas) {
+  while (canvas.hasChildNodes()) {
     canvas.removeChild(canvas.lastChild)
   }
 }
@@ -282,26 +288,50 @@ function showCurrentMonth(month, year) {
   calendarMonth.innerText = `${months[month]} ${year}`
 }
 
-function setLogoutListeners(event) {
+
+function setLogoutListeners() {
   let link1 = document.getElementById('logout')
   link1.addEventListener('click', (ev) => {
-      ev.preventDefault()
-      localStorage.clear()
-      window.location = `/index.html`
-      })
+    ev.preventDefault()
+    localStorage.clear()
+    window.location = `/index.html`
+  })
 
   let link2 = document.getElementById('mobileLogout')
-      link2.addEventListener('click', (ev) => {
-      ev.preventDefault()
-      localStorage.clear()
-      window.location = `/index.html`
+  link2.addEventListener('click', (ev) => {
+    ev.preventDefault()
+    localStorage.clear()
+    window.location = `/index.html`
   })
 
 }
 
+function deleteEntry() {
+
+  let deleteButton = document.getElementById('editDelete')
+  deleteButton.addEventListener('click', (ev) => {
+
+    let entryModalDate = document.getElementById('editCurrentDate')
+    let emdDataId = entryModalDate.getAttribute('data-id')
+    let dateElement = document.getElementById(emdDataId)
+    let entryID = dateElement.dataset.id
+
+    axios.delete(`${url}/entries/${entryID}`)
+      .then((response) => {
+        console.log('DELETED Entry:', response)
+        delete dateElement.dataset.temp
+        delete dateElement.dataset.flow
+        delete dateElement.dataset.id
+        dateElement.className = 'col s1'
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  })
+}
+
 function put(postData, entryID) {
   console.log("this is a put");
-
   axios.put(`${url}/entries/${entryID}`,postData)
   .then((response) => {
     console.log("response:", response)

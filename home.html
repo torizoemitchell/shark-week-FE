@@ -43,7 +43,7 @@
     <div class="background center-align">
       <img src="./images/last-quarter-blue.png" alt="logo" class="moon-logo" height="50" width="50">
     </div>
-    <li><a class="nav-text" id="mobileLogout" href="" id>Log Out</a></li>
+    <li><a class="nav-text" id="mobileLogout" href="">Log Out</a></li>
     <li><a id="setNavButton" class="modal-trigger" href="#settings">Settings</a></li>
   </ul>
 
@@ -175,11 +175,12 @@
                 <div class="col s12 center-align">
                   <a class="waves-effect waves-light btn-large button-color" id="editSubmit">Submit</a>
                 </div>
-              </div>
-            </form>
-            <a href="#!" class="modal-close nav-text">Close</a>
-        </div>
-      </div>
+              </form>
+                <a href="#!" class="modal-close nav-text red left align " id="editDelete">Delete</a>
+              <a href="#!" class="modal-close nav-text right align">Close</a>
+            </div>
+          </div>
+
 
       <!-- modal -->
       <div id="settings" class="modal">
@@ -208,10 +209,16 @@
             <br>
             <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
                 </button>
-            <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
-          </form>
-          <br>
-          <div id="setSuccessMessage">
+                <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
+              </form>
+              <br>
+              <div id="setSuccessMessage">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
+              <a href="#!" class="waves-effect waves-green btn-flat left align nav-text red" id="delete">Delete Account</a>
+            </div>
           </div>
         </div>
         <div>

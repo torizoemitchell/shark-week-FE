@@ -106,62 +106,66 @@
 
         <div class="row">
           <div class="col s12 center-align">
-            <h6>Likelihood of Pregnancy:</h6>
+            <h5>High Risk Days:</h5>
           </div>
-        </div>
-          <!-- <div class="col s2 m4"></div> -->
+          <div class="col s12 center-align">
+            <h12>Use protection or obstain from sex on these days.</h12><br><br>
+          </div>
+          <div class="col s2 m4"></div>
+          <div class="col s10 m8">
+            <ul class="legend center-align">
+              <li>
+                <h12>Likely</h12>
+              </li>
 
-          <div class="row legend center-align">
-            <div class="col s4 center-align">
-              <h12>Likely</h12>
-            </div>
-            <div class="col s4 center-align">
               <li><span class="amber center"></span></li>
               <li><span class="amber darken-1"></span></li>
               <li><span class="amber darken-2"></span></li>
               <li><span class="amber darken-3"></span></li>
               <li><span class="amber darken-4"></span></li>
-            </div>
-            <div class="col s4 center-align">
-              <h12>Extremely<br>Likely</h12>
-            </div>
+              <li>
+                <h12>Extremely<br>Likely</h12>
+              </li>
+            </ul>
+          </div>
+
         </div>
 
         <div class="row legend center-align">
-          <div class="col s4">
-            <h12>Normal</h12>
+          <div class="col s12 center-align">
+            <h5>Low Risk Days:</h5>
           </div>
-          <div class="col s4">
+          <div class="col s12 m3"></div>
+          <div class="col s12 m9">
+            <li>
+              <h12>Normal Body Temp</h12>
+            </li>
             <li><span class="blue lighten-4"></span></li>
+            <!-- <li><span class="white" style="border: 1px white;"></span></li> -->
+            <!-- <li><span class="white" style="border: 1px white;"></span></li> -->
             <li><span class="white" style="border: 1px white;"></span></li>
-            <li><span class="white" style="border: 1px white;"></span></li>
-            <li><span class="white" style="border: 1px white;"></span></li>
+            <li>
+              <h12>Aunt Flow <br>is Visiting</h12>
+            </li>
             <li><span class="blue lighten-2"></span></li>
-          </div>
-          <div class="col s4">
-            <h12>Aunt Flow <br>is Visiting</h12>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col s12 center-align">
-            <h8>Use protection or obstain from sex on these days.</h8><br><br>
-          </div>
-        </div>
+
 
 
         <div class="container">
           <a class="modal-trigger" href="#editEntry" id="edit-entry">
             <div class="row">
-            <div class="col s3"></div>
-            <div class="col s9 modal-trigger" href="#editEntry" id="edit-entry">
-              <div id='canvas'>
-                <!-- canvas here -->
+              <div class="col s3"></div>
+              <div class="col s9 modal-trigger" href="#editEntry" id="edit-entry">
+                <div id='canvas'>
+                  <!-- canvas here -->
+                </div>
               </div>
             </div>
-          </div>
         </div>
-<!-- edit entry modal -->
+        <!-- edit entry modal -->
         <div id="editEntry" class="modal">
           <form class="col s12 form center-align" id="edit-form">
             <div class="row">
@@ -195,41 +199,41 @@
                 <div class="col s12 center-align">
                   <a class="modal-close waves-effect waves-light btn-large button-color" id="editSubmit">Submit</a>
                 </div>
-              </form>
-                <a href="#!" class="modal-close nav-text red left align " id="editDelete">Delete</a>
-              <a href="#!" class="modal-close nav-text right align">Close</a>
-            </div>
+          </form>
+          <a href="#!" class="modal-close nav-text red left align " id="editDelete">Delete</a>
+          <a href="#!" class="modal-close nav-text right align">Close</a>
+          </div>
           </div>
 
 
 
 
-        <!-- modal -->
-        <div id="settings" class="modal">
-          <div class="modal-content nav-text">
-            <h4>Settings</h4>
-            <h7>Edit your information below:</h7>
+          <!-- modal -->
+          <div id="settings" class="modal">
+            <div class="modal-content nav-text">
+              <h4>Settings</h4>
+              <h7>Edit your information below:</h7>
 
-            <form id="settingsForm">
-              <div class="input-field">
-                <label for="name">Name</label><br>
-                <input type="text" name="name" id="setName" required><br>
-              </div>
-              <div class="input-field">
-                <label for="email">Email</label><br>
-                <input type="email" name="email" id="setEmail" required><br>
-              </div>
-              <!-- <div class="input-field">
+              <form id="settingsForm">
+                <div class="input-field">
+                  <label for="name">Name</label><br>
+                  <input type="text" name="name" id="setName" required><br>
+                </div>
+                <div class="input-field">
+                  <label for="email">Email</label><br>
+                  <input type="email" name="email" id="setEmail" required><br>
+                </div>
+                <!-- <div class="input-field">
                   <label for="password">Password</label>
                   <input type="password" name="password" id="setPassword" required><br>
                 </div> -->
-              <div class="input-field">
-                <label for="cycle_length">Cycle Length in Days (optional)</label><br>
-                <input type="number" name="cycle_length" id="setCycle_length"><br>
-              </div>
+                <div class="input-field">
+                  <label for="cycle_length">Cycle Length in Days (optional)</label><br>
+                  <input type="number" name="cycle_length" id="setCycle_length"><br>
+                </div>
 
-              <br>
-              <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
+                <br>
+                <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
                 </button>
 
 
@@ -256,7 +260,7 @@
 
 
 
-  <div id="nextMonthStorage"style="display:none">
+  <div id="nextMonthStorage" style="display:none">
   </div>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

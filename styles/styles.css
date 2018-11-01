@@ -50,12 +50,8 @@ body {
   width: 50%;
 }
 
-.successMessage {
+#successMessage {
   color: green;
-}
-
-.errorMessage {
-  color: red;
 }
 
 .nav-text {

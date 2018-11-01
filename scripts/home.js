@@ -24,18 +24,10 @@ function setCanvasListener(canvas) {
   canvas.addEventListener('click', (event) => {
     let modal = document.getElementById('editEntry')
     let editCurrentDate = document.getElementById('editCurrentDate')
-    let editTemp = document.getElementById('editTemp')
     if (!event.target.id || event.target.id === 'canvas') {
         event.preventDefault()
         setTimeout(() => M.Modal.getInstance(modal).close(), 0)
       }
-
-    if (event.target.getAttribute('data-temp') === null) {
-      editTemp.value = ''
-    }
-    else {
-      editTemp.value = event.target.dataset.temp
-    }
       editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
       editCurrentDate.setAttribute("data-id", event.target.id)
     })
@@ -96,7 +88,6 @@ function setEditListener () {
 
     let postData = {}
     let temp = document.getElementById('editTemp')
-    console.log(temp);
     let toggle = document.getElementById('editCheckbox').checked
 
     let entryModalDate = document.getElementById('editCurrentDate')
@@ -115,7 +106,6 @@ function setEditListener () {
 
     console.log('postData', postData);
     if (dateID) {
-      console.log('dateID:', );
       //axios.put if editing existing entry
       put(postData, dateID)
     } else {
@@ -188,17 +178,12 @@ function addDates(currentMonth, row, r) {
       }
     }
 
-    let col 
-    if (document.getElementById(`${currentMonth}-${date}`)) {
-      col = document.getElementById(`${currentMonth}-${date}`).cloneNode()
-    } else {
-      col = document.createElement('div')
-      col.id = `${currentMonth}-${date}`
-    }
+    let col = document.getElementById(`${currentMonth}-${date}`)? document.getElementById(`${currentMonth}-${date}`) : document.createElement('div')
 
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
+    col.id = `${currentMonth}-${date}`
     row.appendChild(col)
     date++
   }
@@ -228,6 +213,7 @@ function colorCalendar() {
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
+
     let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
 
@@ -236,7 +222,7 @@ function colorCalendar() {
       calculatedStandardDays = true
     }
   })
-  calculatedStandardDays = false
+
 }
 
 function calculateStandardDays(day){
@@ -252,8 +238,8 @@ function calculateStandardDays(day){
 
 
   for(let i = 0; i < 12; i++){
+    fertileDay = fertileDay + modifier
 
-    
     if (fertileDay > daysInMonths[month]){
       futureToggle = true
       month = month < 11 ? month + 1 : 0
@@ -261,13 +247,11 @@ function calculateStandardDays(day){
       modifier = 0
     }
 
-
-    let dayElement = document.getElementById(`${month}-${fertileDay + modifier}`)
+    let dayElement = document.getElementById(`${month}-${fertileDay}`)
 
     if (!dayElement){
       dayElement = document.createElement('div')
-      dayElement.id = `${month}-${fertileDay + modifier}`
-
+      dayElement.id = `${month}-${fertileDay}`
     }
 
     console.log("month: ", month)
@@ -277,6 +261,7 @@ function calculateStandardDays(day){
 
     if(i < 4){
       dayElement.classList.add("darken-2")
+
     }
     if(i < 8 && i >= 4){
       dayElement.classList.add("darken-4")
@@ -294,13 +279,8 @@ function calculateStandardDays(day){
 
 function setGradient(difference, element) {
   if (element.dataset.ignoreTemp) return
-  element.className = "col s1"
-  if (element.dataset.flow === "true") {
-    element.classList.add('blue')
-    element.classList.add('lighten-2')
-    return
-  }
-  if (difference >= 0.4) {
+
+  if (difference >= 0.4 ) {
     element.classList.add('amber')
   } else {
     element.classList.add('blue')
@@ -338,7 +318,7 @@ function setCalendarListeners(currentMonth, calendar){
     }
     //for tracking purposes
     currentMonth = nextMonth
-    colorCalendar()
+
   })
 
   //previous
@@ -358,7 +338,6 @@ function setCalendarListeners(currentMonth, calendar){
     }
     //for tracking purposes
     currentMonth = prevMonth
-    colorCalendar()
   })
 }
 

@@ -18,16 +18,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
   setEditListener()
   setCalendarListeners(currentMonth, canvas)
   setLogoutListeners()
+
 })
 
 function setCanvasListener(canvas) {
   canvas.addEventListener('click', (event) => {
     let modal = document.getElementById('editEntry')
     let editCurrentDate = document.getElementById('editCurrentDate')
+    let editTemp = document.getElementById('editTemp')
     if (!event.target.id || event.target.id === 'canvas') {
         event.preventDefault()
         setTimeout(() => M.Modal.getInstance(modal).close(), 0)
       }
+    if (event.target.getAttribute('data-temp') === null) {
+      editTemp.value = ''
+    }
+    else {
+      editTemp.value = event.target.dataset.temp
+    }
       editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
       editCurrentDate.setAttribute("data-id", event.target.id)
     })
@@ -88,6 +96,7 @@ function setEditListener () {
 
     let postData = {}
     let temp = document.getElementById('editTemp')
+    console.log(temp);
     let toggle = document.getElementById('editCheckbox').checked
 
     let entryModalDate = document.getElementById('editCurrentDate')

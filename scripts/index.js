@@ -34,13 +34,13 @@ function register(event) {
         console.log(response)
         closeSignUpButton = document.getElementById("close-signup")
         closeSignUpButton.click()
-      })
-      .then(()=>{
+
+
+      }).then(()=>{
         //display success message:
-        let updatedMessageDiv = document.getElementById("updatedMessage")
-        console.log("updatedMessage", updatedMessageDiv)
-        updatedMessageDiv.classList = "successMessage"
-        updatedMessageDiv.innerText = "Successfully Registered. Please Login."
+        let successMessageDiv = document.getElementById("successMessage")
+        console.log("Successmessage", successMessageDiv)
+        successMessageDiv.innerText = "Successfully Registered. Please Login."
       })
       .catch((error) => {
         console.log(error)
@@ -79,9 +79,6 @@ function login(event) {
 
 
     .catch((error) => {
-      let updatedMessageDiv = document.getElementById("updatedMessage")
-      updatedMessageDiv.innerText = "That username and/or password doesn't exist"
-      updatedMessageDiv.classList = ("errorMessage")
       console.log('error:', error)
     })
 

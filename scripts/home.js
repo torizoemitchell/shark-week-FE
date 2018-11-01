@@ -18,12 +18,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
   logOut()
 
 let editCurrentDate = document.getElementById('editCurrentDate')
+
 canvas.addEventListener('click', (event) => {
+let editTemp = document.getElementById('editTemp')
+if (event.target.getAttribute('data-temp') === null) {
+  editTemp.value = ''
+}
+else {
+  editTemp.value = event.target.dataset.temp
+}
     console.log(event.target)
     editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
     editCurrentDate.setAttribute("data-id", event.target.id)
   })
-
 })
 
 function welcomeUser() {
@@ -79,6 +86,7 @@ function editEntry () {
 
     let postData = {}
     let temp = document.getElementById('editTemp')
+    console.log(temp);
     let toggle = document.getElementById('editCheckbox').checked
 
     let entryModalDate = document.getElementById('editCurrentDate')
@@ -198,8 +206,8 @@ function colorCalendar() {
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
-    
-    let tempDifference = day.dataset.temp - 98.60 
+
+    let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
   })
 }
@@ -210,16 +218,16 @@ function setGradient(difference, element) {
   } else {
     element.classList.add('blue')
     element.classList.add('lighten-4')
-  } 
+  }
   if (difference > 0.4 && difference <= 0.55) {
     element.classList.add('darken-1')
-  } 
+  }
   if (difference > 0.55 && difference <= 0.65) {
     element.classList.add('darken-2')
-  } 
+  }
   if (difference > 0.65 && difference <= 0.75) {
     element.classList.add('darken-3')
-  } 
+  }
   if (difference > 0.75) {
     element.classList.add('darken-4')
   }

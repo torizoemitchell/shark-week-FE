@@ -31,7 +31,7 @@
   <nav class="header">
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo brand">Tempo</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger valign-wrapper"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a id="logout" href="">Log Out</a></li>
         <li><a id="setHeadButton" class="modal-trigger" href="#settings">Settings</a></li>
@@ -97,7 +97,7 @@
             <a href="#" id="prev-month" class="previous round">&#8249;</a>
           </div>
           <div class="col s6 center-align">
-            <h3 id="currentMonth">Month</h3>
+            <h4 id="currentMonth">Month</h4>
           </div>
           <div class="col s3">
             <a href="#" id="next-month" class="next round">&#8250;</a>
@@ -108,31 +108,32 @@
           <div class="col s12 center-align">
             <h6>Likelihood of Pregnancy:</h6>
           </div>
-          <div class="col s1 m4"></div>
-          <div class="col s11 m8">
-            <ul class="legend">
+          <div class="col s2 m4"></div>
+          <div class="col s10 m8">
+            <ul class="row legend center-align">
               <li>
-                <h8>Likely</h8>
+                <h12>Likely</h12>
               </li>
+
               <li><span class="amber center"></span></li>
               <li><span class="amber darken-1"></span></li>
               <li><span class="amber darken-2"></span></li>
               <li><span class="amber darken-3"></span></li>
               <li><span class="amber darken-4"></span></li>
               <li>
-                <h8>Extremely Likely</h8>
+                <h12>Extremely<br>Likely</h12>
               </li>
             </ul>
           </div>
           <div class="col s12 center-align">
-            <h8>Use protection or obstain from sex on these days.</h8>
+            <h8>Use protection or obstain from sex on these days.</h8><br><br>
           </div>
         </div>
 
 
         <div class="container">
-
-          <div class="row">
+          <a class="modal-trigger" href="#editEntry" id="edit-entry">
+            <div class="row">
             <div class="col s3"></div>
             <div class="col s9 modal-trigger" href="#editEntry" id="edit-entry">
               <div id='canvas'>
@@ -143,34 +144,34 @@
         </div>
 <!-- edit entry modal -->
         <div id="editEntry" class="modal">
-            <form class="col s12 form center-align" id="edit-form">
-              <div class="row">
-                <div class="col s12 center-align">
-                  <h5 id='editWelcome'></h5>
-                  <h4 id="editCurrentDate"></h4>
-                </div>
-              </div>
+          <form class="col s12 form center-align" id="edit-form">
+            <div class="row">
               <div class="col s12 center-align">
-                <h7>Please edit your temperature here: </h7>
+                <h5 id='editWelcome'></h5>
+                <h4 id="editCurrentDate"></h4>
               </div>
-              <div class="row">
-                <div class="input-field col s12 center-align">
-                  <input id="editTemp" type="float" class="validate input" required autofocus>
-                </div>
+            </div>
+            <div class="col s12 center-align">
+              <h7>Please edit your temperature here: </h7>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 center-align">
+                <input id="editTemp" type="float" class="validate input" required autofocus>
               </div>
-              <!-- Switch -->
-              <div class="row">
-                <div class="col s12 center-align">
-                  <label>Is Aunt Flow In Town?</label>
-                  <div class="switch">
-                    <label>No
+            </div>
+            <!-- Switch -->
+            <div class="row">
+              <div class="col s12 center-align">
+                <label>Is Aunt Flow In Town?</label>
+                <div class="switch">
+                  <label>No
                     <input type="checkbox" id=editCheckbox>
                     <span class="lever"></span>
                     Yes
                     </label>
-                  </div>
                 </div>
               </div>
+
               <div class="row">
                 <div class="col s12 center-align">
                   <a class="modal-close waves-effect waves-light btn-large button-color" id="editSubmit">Submit</a>
@@ -182,33 +183,37 @@
           </div>
 
 
-      <!-- modal -->
-      <div id="settings" class="modal">
-        <div class="modal-content nav-text">
-          <h4>Settings</h4>
-          <h7>Edit your information below:</h7>
 
-          <form id="settingsForm">
-            <div class="input-field">
-              <label for="name">Name</label><br>
-              <input type="text" name="name" id="setName" required><br>
-            </div>
-            <div class="input-field">
-              <label for="email">Email</label><br>
-              <input type="email" name="email" id="setEmail" required><br>
-            </div>
-            <!-- <div class="input-field">
+
+        <!-- modal -->
+        <div id="settings" class="modal">
+          <div class="modal-content nav-text">
+            <h4>Settings</h4>
+            <h7>Edit your information below:</h7>
+
+            <form id="settingsForm">
+              <div class="input-field">
+                <label for="name">Name</label><br>
+                <input type="text" name="name" id="setName" required><br>
+              </div>
+              <div class="input-field">
+                <label for="email">Email</label><br>
+                <input type="email" name="email" id="setEmail" required><br>
+              </div>
+              <!-- <div class="input-field">
                   <label for="password">Password</label>
                   <input type="password" name="password" id="setPassword" required><br>
                 </div> -->
-            <div class="input-field">
-              <label for="cycle_length">Cycle Length in Days (optional)</label><br>
-              <input type="number" name="cycle_length" id="setCycle_length"><br>
-            </div>
+              <div class="input-field">
+                <label for="cycle_length">Cycle Length in Days (optional)</label><br>
+                <input type="number" name="cycle_length" id="setCycle_length"><br>
+              </div>
 
-            <br>
-            <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
+              <br>
+              <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
                 </button>
+
+
                 <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
               </form>
               <br>
@@ -219,24 +224,21 @@
               <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
               <a href="#!" class="waves-effect waves-green btn-flat left align nav-text red" id="delete">Delete Account</a>
             </div>
+          
           </div>
         </div>
-        <div>
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
-        </div>
+
       </div>
-
-
-
-
-
-
     </div>
+
+
   </div>
 
+
+
+
+  <div id="nextMonthStorage"style="display:none">
   </div>
-
-
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/home.js"></script>

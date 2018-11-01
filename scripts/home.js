@@ -115,6 +115,7 @@ function setEditListener () {
 
     console.log('postData', postData);
     if (dateID) {
+      console.log('dateID:', );
       //axios.put if editing existing entry
       put(postData, dateID)
     } else {
@@ -227,7 +228,6 @@ function colorCalendar() {
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
-
     let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
 
@@ -294,9 +294,13 @@ function calculateStandardDays(day){
 
 function setGradient(difference, element) {
   if (element.dataset.ignoreTemp) return
-
-
-  if (difference >= 0.4 ) {
+  element.className = "col s1"
+  if (element.dataset.flow === "true") {
+    element.classList.add('blue')
+    element.classList.add('lighten-2')
+    return
+  }
+  if (difference >= 0.4) {
     element.classList.add('amber')
   } else {
     element.classList.add('blue')

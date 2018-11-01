@@ -312,6 +312,7 @@ function put(postData, entryID) {
     entries.push(newEntry)
     localStorage.setItem('User Entries', JSON.stringify(entries))
     setCalendarDataAttributes()
+    colorCalendar()
   })
   .catch((error) => {
     console.log(error)
@@ -336,6 +337,8 @@ function post(postData) {
     entries.push(newEntry)
     localStorage.setItem('User Entries', JSON.stringify(entries))
     setCalendarDataAttributes()
+    colorCalendar()
+
   })
   .catch((error) => {
     console.log(error)

@@ -178,12 +178,17 @@ function addDates(currentMonth, row, r) {
       }
     }
 
-    let col = document.getElementById(`${currentMonth}-${date}`)? document.getElementById(`${currentMonth}-${date}`) : document.createElement('div')
+    let col 
+    if (document.getElementById(`${currentMonth}-${date}`)) {
+      col = document.getElementById(`${currentMonth}-${date}`).cloneNode()
+    } else {
+      col = document.createElement('div')
+      col.id = `${currentMonth}-${date}`
+    }
 
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
-    col.id = `${currentMonth}-${date}`
     row.appendChild(col)
     date++
   }
@@ -222,7 +227,7 @@ function colorCalendar() {
       calculatedStandardDays = true
     }
   })
-
+  calculatedStandardDays = false
 }
 
 function calculateStandardDays(day){
@@ -238,7 +243,6 @@ function calculateStandardDays(day){
 
 
   for(let i = 0; i < 12; i++){
-    fertileDay = fertileDay + modifier
     
     if (fertileDay > daysInMonths[month]){
       futureToggle = true
@@ -247,11 +251,11 @@ function calculateStandardDays(day){
       modifier = 0
     }
 
-    let dayElement = document.getElementById(`${month}-${fertileDay}`)
+    let dayElement = document.getElementById(`${month}-${fertileDay + modifier}`)
 
     if (!dayElement){
       dayElement = document.createElement('div')
-      dayElement.id = `${month}-${fertileDay}`
+      dayElement.id = `${month}-${fertileDay + modifier}`
     }
 
     console.log("month: ", month)
@@ -261,7 +265,6 @@ function calculateStandardDays(day){
 
     if(i < 4){
       dayElement.classList.add("darken-2")
-
     }
     if(i < 8 && i >= 4){
       dayElement.classList.add("darken-4")
@@ -318,7 +321,7 @@ function setCalendarListeners(currentMonth, calendar){
     }
     //for tracking purposes
     currentMonth = nextMonth
-
+    colorCalendar()
   })
 
   //previous
@@ -338,6 +341,7 @@ function setCalendarListeners(currentMonth, calendar){
     }
     //for tracking purposes
     currentMonth = prevMonth
+    colorCalendar()
   })
 }
 

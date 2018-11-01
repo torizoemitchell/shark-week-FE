@@ -34,6 +34,9 @@ body {
   color: midnightblue;
 }
 
+.form modal{
+  margin-top: none;
+}
 .input {
   border-color: grey;
 }

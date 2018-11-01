@@ -7,25 +7,31 @@ let currentYear = today.getFullYear()
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
-  M.AutoInit()
-
   let canvas = document.getElementById('canvas')
+
+  M.AutoInit()
   welcomeUser()
   makeCalendar(currentMonth, canvas)
-  setEditFormListener()
-  editEntry()
-  addCalendarFunctions(currentMonth, canvas)
-  logOut()
-
-let editCurrentDate = document.getElementById('editCurrentDate')
-canvas.addEventListener('click', (event) => {
-    console.log(event.target)
-    editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
-    editCurrentDate.setAttribute("data-id", event.target.id)
-  })
-
+  setCanvasListener(canvas)
+  setSubmitListener()
+  setEditListener()
+  setCalendarListners(currentMonth, canvas)
+  setLogoutListeners()
 })
 
+function setCanvasListener(canvas) {
+  canvas.addEventListener('click', (event) => {
+    let modal = document.getElementById('editEntry')
+    let editCurrentDate = document.getElementById('editCurrentDate')
+    if (!event.target.id || event.target.id === 'canvas') {
+        event.preventDefault()
+        setTimeout(() => M.Modal.getInstance(modal).close(), 0)
+      }
+      editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
+      editCurrentDate.setAttribute("data-id", event.target.id)
+    })
+}
+  
 function welcomeUser() {
   let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
   let welcome = document.getElementById('welcome')
@@ -40,7 +46,7 @@ function welcomeUser() {
 
 }
 
-function setEditFormListener () {
+function setSubmitListener () {
   let button = document.getElementById('submit')
   button.addEventListener('click', (ev) => {
 
@@ -71,7 +77,7 @@ function setEditFormListener () {
   })
 }
 
-function editEntry () {
+function setEditListener () {
   let button = document.getElementById('editSubmit')
 
   button.addEventListener('click', (ev) => {
@@ -225,7 +231,7 @@ function setGradient(difference, element) {
   }
 }
 
-function addCalendarFunctions(currentMonth, calendar){
+function setCalendarListners(currentMonth, calendar){
   //next
   let nextMonthButton = document.getElementById("next-month")
 
@@ -276,7 +282,7 @@ function showCurrentMonth(month, year) {
   calendarMonth.innerText = `${months[month]} ${year}`
 }
 
-function logOut(event) {
+function setLogoutListeners(event) {
   let link1 = document.getElementById('logout')
   link1.addEventListener('click', (ev) => {
       ev.preventDefault()

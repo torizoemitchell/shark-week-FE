@@ -218,29 +218,35 @@ function calculateStandardDays(day){
 
   console.log("calculate standard days")
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  let [month, date] = day.id.split('-')
+  let month = +day.id.split('-')[0]
+  let date = +day.id.split('-')[1]
 
-  let firstDayOfFertility = +date + 7
-
+  let fertileDay = date + 7
+  let futureToggle = false
+  let modifier = 0
 
 
   for(let i = 0; i < 12; i++){
-    let day = firstDayOfFertility + i
-    if(day > daysInMonths[month]){
-      month = +month + 1
-      day = 1
+    fertileDay = fertileDay + modifier
+    
+    if (fertileDay > daysInMonths[month]){
+      futureToggle = true
+      month = month < 11 ? month + 1 : 0
+      fertileDay = 1
+      modifier = 0
     }
 
-    let dayElement = document.getElementById(`${month}-${day}`)
+    let dayElement = document.getElementById(`${month}-${fertileDay}`)
 
-    if(!dayElement){
+    if (!dayElement){
       dayElement = document.createElement('div')
-      dayElement.id = `${month}-${day}`
+      dayElement.id = `${month}-${fertileDay}`
     }
 
     console.log("month: ", month)
-    console.log("day: ", day)
+    console.log("day: ", fertileDay)
     dayElement.classList.add("amber")
+    dayElement.setAttribute('data-ignoreTemp', "true")
 
     if(i < 4){
       dayElement.classList.add("darken-2")
@@ -252,11 +258,17 @@ function calculateStandardDays(day){
     if(i >= 8){
       dayElement.classList.add("darken-2")
     }
+    if (futureToggle) {
+      document.getElementById('nextMonthStorage').appendChild(dayElement)
+    }
+    modifier++
   }
 
 }
 
 function setGradient(difference, element) {
+  if (element.dataset.ignoreTemp) return 
+
   if (difference >= 0.4 ) {
     element.classList.add('amber')
   } else {

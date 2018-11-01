@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   setEditListener()
   setCalendarListeners(currentMonth, canvas)
   setLogoutListeners()
-
 })
 
 function setCanvasListener(canvas) {
@@ -30,6 +29,7 @@ function setCanvasListener(canvas) {
         event.preventDefault()
         setTimeout(() => M.Modal.getInstance(modal).close(), 0)
       }
+
     if (event.target.getAttribute('data-temp') === null) {
       editTemp.value = ''
     }
@@ -252,6 +252,7 @@ function calculateStandardDays(day){
 
 
   for(let i = 0; i < 12; i++){
+
     
     if (fertileDay > daysInMonths[month]){
       futureToggle = true
@@ -260,11 +261,13 @@ function calculateStandardDays(day){
       modifier = 0
     }
 
+
     let dayElement = document.getElementById(`${month}-${fertileDay + modifier}`)
 
     if (!dayElement){
       dayElement = document.createElement('div')
       dayElement.id = `${month}-${fertileDay + modifier}`
+
     }
 
     console.log("month: ", month)
@@ -291,6 +294,7 @@ function calculateStandardDays(day){
 
 function setGradient(difference, element) {
   if (element.dataset.ignoreTemp) return
+
 
   if (difference >= 0.4 ) {
     element.classList.add('amber')

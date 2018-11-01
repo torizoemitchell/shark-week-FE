@@ -61,7 +61,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12 center-align">
-            <input id="temp" type="number" class="validate input" Style="text-align: center" pattern="\d\d.\d\d" data-error="Please Use 2 decimal places." step="0.01" min="97.00" max="99.99" required autofocus>
+            <input id="temp" type="number" class="validate input" pattern="\d\d.\d\d" placeholder="2 decimal place accuracy. Example: 98.62" step="0.01" min="97.00" max="99.99" required autofocus>
           </div>
         </div>
         <!-- Switch -->
@@ -105,67 +105,75 @@
         </div>
 
         <div class="row">
-          <div class="col s2">
-            <h8>Pregnancy Likely</h8>
+          <div class="col s12 center-align">
+            <h6>Likelihood of Pregnancy:</h6>
           </div>
-          <div class="col s8">
+          <div class="col s1 m4"></div>
+          <div class="col s11 m8">
             <ul class="legend">
-                <li><span class="amber lighten-4"></span></li>
-                <li><span class="amber lighten-3"></span></li>
-                <li><span class="amber lighten-2"></span></li>
-                <li><span class="amber lighten-1"></span></li>
-                <li><span class="amber"></span></li>
+              <li>
+                <h8>Likely</h8>
+              </li>
+              <li><span class="amber center"></span></li>
+              <li><span class="amber darken-1"></span></li>
+              <li><span class="amber darken-2"></span></li>
+              <li><span class="amber darken-3"></span></li>
+              <li><span class="amber darken-4"></span></li>
+              <li>
+                <h8>Extremely Likely</h8>
+              </li>
             </ul>
           </div>
-          <div class="col s2 left-align">
-            <h8>Pregnancy Extremely Likely</h8>
+          <div class="col s12 center-align">
+            <h8>Use protection or obstain from sex on these days.</h8>
           </div>
         </div>
 
+
         <div class="container">
-          <a class="modal-trigger" href="#editEntry" id="edit-entry">
-            <div class="row">
-              <div class="col s3"></div>
-              <div class="col s9">
-                <div id='canvas'>
-                  <!-- canvas here -->
-                </div>
+
+          <div class="row">
+            <div class="col s3"></div>
+            <div class="col s9 modal-trigger" href="#editEntry" id="edit-entry">
+              <div id='canvas'>
+                <!-- canvas here -->
               </div>
             </div>
-          </a>
-          <div id="editEntry" class="modal">
-            <div class="modal-content nav-text">
-              <form class="col s12 form center-align" id="edit-form">
-                <div class="row">
-                  <div class="col s12 center-align">
-                    <h4 id="editCurrentDate"></h4>
-                  </div>
-                </div>
+          </div>
+        </div>
+
+        <div id="editEntry" class="modal">
+            <form class="col s12 form center-align" id="edit-form">
+              <div class="row">
                 <div class="col s12 center-align">
-                  <h7>Please edit your temperature here: </h7>
+                  <h5 id='editWelcome'></h5>
+                  <h4 id="editCurrentDate"></h4>
                 </div>
-                <div class="row">
-                  <div class="input-field col s12 center-align">
-                    <input id="editTemp" type="float" class="validate input" required autofocus>
-                  </div>
+              </div>
+              <div class="col s12 center-align">
+                <h7>Please edit your temperature here: </h7>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 center-align">
+                  <input id="editTemp" type="float" class="validate input" required autofocus>
                 </div>
-                <!-- Switch -->
-                <div class="row">
-                  <div class="col s12 center-align">
-                    <label>Is Aunt Flow In Town?</label>
-                    <div class="switch">
-                      <label>No
+              </div>
+              <!-- Switch -->
+              <div class="row">
+                <div class="col s12 center-align">
+                  <label>Is Aunt Flow In Town?</label>
+                  <div class="switch">
+                    <label>No
                     <input type="checkbox" id=editCheckbox>
                     <span class="lever"></span>
                     Yes
                     </label>
-                    </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col s12 center-align">
-                    <a class="waves-effect waves-light btn-large button-color modal-close" id="editSubmit">Submit</a>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col s12 center-align">
+                  <a class="waves-effect waves-light btn-large button-color" id="editSubmit">Submit</a>
                 </div>
               </form>
                 <a href="#!" class="modal-close nav-text red left align " id="editDelete">Delete</a>
@@ -173,32 +181,33 @@
             </div>
           </div>
 
-          <!-- modal -->
-          <div id="settings" class="modal">
-            <div class="modal-content nav-text">
-              <h4>Settings!</h4>
-              <h7>Edit your information below:</h7>
 
-              <form id="settingsForm">
-                <div class="input-field">
-                  <label for="name">Name</label><br>
-                  <input type="text" name="name" id="setName" required><br>
-                </div>
-                <div class="input-field">
-                  <label for="email">Email</label><br>
-                  <input type="email" name="email" id="setEmail" required><br>
-                </div>
-                <!-- <div class="input-field">
+      <!-- modal -->
+      <div id="settings" class="modal">
+        <div class="modal-content nav-text">
+          <h4>Settings</h4>
+          <h7>Edit your information below:</h7>
+
+          <form id="settingsForm">
+            <div class="input-field">
+              <label for="name">Name</label><br>
+              <input type="text" name="name" id="setName" required><br>
+            </div>
+            <div class="input-field">
+              <label for="email">Email</label><br>
+              <input type="email" name="email" id="setEmail" required><br>
+            </div>
+            <!-- <div class="input-field">
                   <label for="password">Password</label>
                   <input type="password" name="password" id="setPassword" required><br>
                 </div> -->
-                <div class="input-field">
-                  <label for="cycle_length">Cycle Length in Days (optional)</label><br>
-                  <input type="number" name="cycle_length" id="setCycle_length"><br>
-                </div>
+            <div class="input-field">
+              <label for="cycle_length">Cycle Length in Days (optional)</label><br>
+              <input type="number" name="cycle_length" id="setCycle_length"><br>
+            </div>
 
-                <br>
-                <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
+            <br>
+            <button class="btn waves-effect waves-light button-color" value="Submit" type="submit" id="setSubmitForm" name="action">Commit Changes<i class="material-icons right">send</i>
                 </button>
                 <!-- <input type="submit" value="SUBMIT" id="submit-form" class="modal-close nav-text"> -->
               </form>
@@ -211,10 +220,20 @@
               <a href="#!" class="waves-effect waves-green btn-flat left align nav-text red" id="delete">Delete Account</a>
             </div>
           </div>
-
+        </div>
+        <div>
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat nav-text">Close</a>
         </div>
       </div>
+
+
+
+
+
+
     </div>
+  </div>
+
   </div>
 
 

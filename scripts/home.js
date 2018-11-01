@@ -7,26 +7,32 @@ let currentYear = today.getFullYear()
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("window loaded")
-  M.AutoInit()
-
   let canvas = document.getElementById('canvas')
+
+  M.AutoInit()
   welcomeUser()
   makeCalendar(currentMonth, canvas)
-  setEditFormListener()
-  editEntry()
-  addCalendarFunctions(currentMonth, canvas)
-  logOut()
   deleteEntry()
-
-  let editCurrentDate = document.getElementById('editCurrentDate')
-  canvas.addEventListener('click', (event) => {
-    console.log(event.target)
-    editCurrentDate.innerHTML = months[currentMonth] + ', ' + event.target.id.split('-')[1]
-    editCurrentDate.setAttribute("data-id", event.target.id)
-  })
-
+  setCanvasListener(canvas)
+  setSubmitListener()
+  setEditListener()
+  setCalendarListeners(currentMonth, canvas)
+  setLogoutListeners()
 })
 
+function setCanvasListener(canvas) {
+  canvas.addEventListener('click', (event) => {
+    let modal = document.getElementById('editEntry')
+    let editCurrentDate = document.getElementById('editCurrentDate')
+    if (!event.target.id || event.target.id === 'canvas') {
+        event.preventDefault()
+        setTimeout(() => M.Modal.getInstance(modal).close(), 0)
+      }
+      editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
+      editCurrentDate.setAttribute("data-id", event.target.id)
+    })
+}
+  
 function welcomeUser() {
   let userName = localStorage.getItem('User Name').replace(/\"|\'|\`/g, '')
   let welcome = document.getElementById('welcome')
@@ -41,7 +47,8 @@ function welcomeUser() {
 
 }
 
-function setEditFormListener() {
+
+function setSubmitListener () {
   let button = document.getElementById('submit')
   button.addEventListener('click', (ev) => {
 
@@ -72,7 +79,8 @@ function setEditFormListener() {
   })
 }
 
-function editEntry() {
+
+function setEditListener () {
   let button = document.getElementById('editSubmit')
 
   button.addEventListener('click', (ev) => {
@@ -228,7 +236,8 @@ function setGradient(difference, element) {
   }
 }
 
-function addCalendarFunctions(currentMonth, calendar) {
+
+function setCalendarListeners(currentMonth, calendar){
   //next
   let nextMonthButton = document.getElementById("next-month")
 
@@ -279,7 +288,8 @@ function showCurrentMonth(month, year) {
   calendarMonth.innerText = `${months[month]} ${year}`
 }
 
-function logOut() {
+
+function setLogoutListeners() {
   let link1 = document.getElementById('logout')
   link1.addEventListener('click', (ev) => {
     ev.preventDefault()
@@ -322,49 +332,50 @@ function deleteEntry() {
 
 function put(postData, entryID) {
   console.log("this is a put");
+  axios.put(`${url}/entries/${entryID}`,postData)
+  .then((response) => {
+    console.log("response:", response)
 
-  axios.put(`${url}/entries/${entryID}`, postData)
-    .then((response) => {
-      console.log("response:", response)
-
-      let inputDiv = document.getElementById("user-input")
-      let entries = JSON.parse(localStorage.getItem('User Entries'))
-      let newEntry = Object.assign({
-        temp: postData.temp,
-        flow: postData.flow,
-        day: postData.date.getDate(),
-        month: postData.date.getMonth()
-      }, response.data)
-      inputDiv.hidden = true
-      entries.push(newEntry)
-      localStorage.setItem('User Entries', JSON.stringify(entries))
-      setCalendarDataAttributes()
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    let inputDiv = document.getElementById("user-input")
+    let entries = JSON.parse(localStorage.getItem('User Entries'))
+    let newEntry = Object.assign({
+      temp: postData.temp,
+      flow: postData.flow,
+      day: postData.date.getDate(),
+      month: postData.date.getMonth()
+    }, response.data)
+    inputDiv.hidden = true
+    entries.push(newEntry)
+    localStorage.setItem('User Entries', JSON.stringify(entries))
+    setCalendarDataAttributes()
+    colorCalendar()
+  })
+  .catch((error) => {
+    console.log(error)
+  })
 }
 
 function post(postData) {
   console.log('this is a post');
   axios.post(`${url}/entries/${userId}`, postData)
-    .then((response) => {
-      console.log("response:", response)
+  .then((response) => {
+    console.log("response:", response)
 
-      let inputDiv = document.getElementById("user-input")
-      let entries = JSON.parse(localStorage.getItem('User Entries'))
-      let newEntry = Object.assign({
-        temp: postData.temp,
-        flow: postData.flow,
-        day: postData.date.getDate(),
-        month: postData.date.getMonth()
-      }, response.data)
-      inputDiv.hidden = true
-      entries.push(newEntry)
-      localStorage.setItem('User Entries', JSON.stringify(entries))
-      setCalendarDataAttributes()
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    let inputDiv = document.getElementById("user-input")
+    let entries = JSON.parse(localStorage.getItem('User Entries'))
+    let newEntry = Object.assign({
+      temp: postData.temp,
+      flow: postData.flow,
+      day: postData.date.getDate(),
+      month: postData.date.getMonth()
+    }, response.data)
+    inputDiv.hidden = true
+    entries.push(newEntry)
+    localStorage.setItem('User Entries', JSON.stringify(entries))
+    setCalendarDataAttributes()
+    colorCalendar()
+  })
+  .catch((error) => {
+    console.log(error)
+  })
 }

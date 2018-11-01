@@ -115,6 +115,7 @@ function setEditListener () {
   })
 }
 
+
 function makeCalendar(currentMonth, calendar) {
 
   showCurrentMonth(currentMonth, currentYear)
@@ -177,7 +178,7 @@ function addDates(currentMonth, row, r) {
       }
     }
 
-    let col = document.createElement('div')
+    let col = document.getElementById(`${currentMonth}-${date}`)? document.getElementById(`${currentMonth}-${date}`) : document.createElement('div')
 
     col.classList.add('col')
     col.classList.add('s1')
@@ -204,7 +205,10 @@ function setCalendarDataAttributes() {
 }
 
 function colorCalendar() {
+  console.log("color calendar")
   let entries = JSON.parse(localStorage.getItem('User Entries'))
+
+  let calculatedStandardDays = false;
 
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
@@ -212,11 +216,71 @@ function colorCalendar() {
 
     let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
+
+    if (entry.flow && !calculatedStandardDays){
+      calculateStandardDays(day)
+      calculatedStandardDays = true
+    }
   })
+
+}
+
+function calculateStandardDays(day){
+
+  console.log("calculate standard days")
+  let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  let month = +day.id.split('-')[0]
+  let date = +day.id.split('-')[1]
+
+  let fertileDay = date + 7
+  let futureToggle = false
+  let modifier = 0
+
+
+  for(let i = 0; i < 12; i++){
+    fertileDay = fertileDay + modifier
+    
+    if (fertileDay > daysInMonths[month]){
+      futureToggle = true
+      month = month < 11 ? month + 1 : 0
+      fertileDay = 1
+      modifier = 0
+    }
+
+    let dayElement = document.getElementById(`${month}-${fertileDay}`)
+
+    if (!dayElement){
+      dayElement = document.createElement('div')
+      dayElement.id = `${month}-${fertileDay}`
+    }
+
+    console.log("month: ", month)
+    console.log("day: ", fertileDay)
+    dayElement.classList.add("amber")
+    dayElement.setAttribute('data-ignoreTemp', "true")
+
+    if(i < 4){
+      dayElement.classList.add("darken-2")
+
+    }
+    if(i < 8 && i >= 4){
+      dayElement.classList.add("darken-4")
+    }
+    if(i >= 8){
+      dayElement.classList.add("darken-2")
+    }
+    if (futureToggle) {
+      document.getElementById('nextMonthStorage').appendChild(dayElement)
+    }
+    modifier++
+  }
+
 }
 
 function setGradient(difference, element) {
-  if (difference >= 0.4) {
+  if (element.dataset.ignoreTemp) return 
+
+  if (difference >= 0.4 ) {
     element.classList.add('amber')
   } else {
     element.classList.add('blue')

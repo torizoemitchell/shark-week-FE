@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 let editCurrentDate = document.getElementById('editCurrentDate')
 canvas.addEventListener('click', (event) => {
     console.log(event.target)
-    editCurrentDate.innerHTML = months[currentMonth] + ', ' + event.target.id.split('-')[1]
+    editCurrentDate.innerHTML = `${months[event.target.id.split('-')[0]]} ${event.target.id.split('-')[1]}`
     editCurrentDate.setAttribute("data-id", event.target.id)
   })
 
@@ -338,7 +338,6 @@ function post(postData) {
     localStorage.setItem('User Entries', JSON.stringify(entries))
     setCalendarDataAttributes()
     colorCalendar()
-
   })
   .catch((error) => {
     console.log(error)

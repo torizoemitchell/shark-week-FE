@@ -105,6 +105,7 @@ function editEntry () {
 }
 
 function makeCalendar (currentMonth, calendar){
+  console.log("make calendar")
 
   showCurrentMonth(currentMonth, currentYear)
   addHeader(calendar)
@@ -166,7 +167,7 @@ function addDates(currentMonth, row, r) {
       }
     }
 
-    let col = document.createElement('div')
+    let col = document.getElementById(`${currentMonth}-${date}`)? document.getElementById(`${currentMonth}-${date}`) : document.createElement('div')
 
     col.classList.add('col')
     col.classList.add('s1')
@@ -193,15 +194,66 @@ function setCalendarDataAttributes() {
 }
 
 function colorCalendar() {
+  console.log("color calendar")
   let entries = JSON.parse(localStorage.getItem('User Entries'))
+
+  let calculatedStandardDays = false;
 
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
-    
-    let tempDifference = day.dataset.temp - 98.60 
+
+    let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
+
+    if (entry.flow && !calculatedStandardDays){
+      calculateStandardDays(day)
+      calculatedStandardDays = true
+    }
   })
+
+}
+
+function calculateStandardDays(day){
+
+  console.log("calculate standard days")
+  let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  let [month, date] = day.id.split('-')
+
+  let firstDayOfFertility = +date + 7
+
+
+
+  for(let i = 0; i < 12; i++){
+    let day = firstDayOfFertility + i
+    if(day > daysInMonths[month]){
+      month = +month + 1
+      day = 1
+    }
+
+    let dayElement = document.getElementById(`${month}-${day}`)
+
+    if(!dayElement){
+      dayElement = document.createElement('div')
+      dayElement.id = `${month}-${day}`
+    }
+
+    console.log("month: ", month)
+    console.log("day: ", day)
+    dayElement.classList.add("amber")
+
+    if(i < 4){
+      dayElement.classList.add("darken-2")
+
+    }
+    if(i < 8 && i >= 4){
+      dayElement.classList.add("darken-4")
+    }
+    if(i >= 8){
+      dayElement.classList.add("darken-2")
+    }
+  }
+
 }
 
 function setGradient(difference, element) {
@@ -210,16 +262,16 @@ function setGradient(difference, element) {
   } else {
     element.classList.add('blue')
     element.classList.add('lighten-4')
-  } 
+  }
   if (difference > 0.4 && difference <= 0.55) {
     element.classList.add('darken-1')
-  } 
+  }
   if (difference > 0.55 && difference <= 0.65) {
     element.classList.add('darken-2')
-  } 
+  }
   if (difference > 0.65 && difference <= 0.75) {
     element.classList.add('darken-3')
-  } 
+  }
   if (difference > 0.75) {
     element.classList.add('darken-4')
   }

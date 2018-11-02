@@ -116,7 +116,7 @@ function setEditListener () {
 }
 
 
-function makeCalendar(currentMonth, calendar) {
+function makeCalendar(currentMonth, calendar, caller) {
 
   showCurrentMonth(currentMonth, currentYear)
   addHeader(calendar)
@@ -129,7 +129,7 @@ function makeCalendar(currentMonth, calendar) {
     calendar.appendChild(row)
   }
   setCalendarDataAttributes()
-  colorCalendar()
+  colorCalendar(caller)
 }
 
 function addHeader(calendar) {
@@ -178,12 +178,18 @@ function addDates(currentMonth, row, r) {
       }
     }
 
-    let col = document.getElementById(`${currentMonth}-${date}`)? document.getElementById(`${currentMonth}-${date}`) : document.createElement('div')
+    let col
 
+    if (document.getElementById(`${currentMonth}-${date}`)) {
+      col = document.getElementById(`${currentMonth}-${date}`).cloneNode()
+    } else {
+      col = document.createElement('div')
+      col.id = `${currentMonth}-${date}`
+    }
+    
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
-    col.id = `${currentMonth}-${date}`
     row.appendChild(col)
     date++
   }
@@ -204,12 +210,14 @@ function setCalendarDataAttributes() {
   })
 }
 
-function colorCalendar() {
+function colorCalendar(caller) {
+  if (caller !== 'prev' && caller !== 'next') {
+    removeStandardDays()
+  }
+
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   let calculatedStandardDays = false;
-
-  removeStandardDays()
 
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
@@ -218,7 +226,7 @@ function colorCalendar() {
     let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
 
-    if (entry.flow && !calculatedStandardDays){
+    if (entry.flow && !calculatedStandardDays) {
       calculateStandardDays(day)
       calculatedStandardDays = true
     }
@@ -227,7 +235,22 @@ function colorCalendar() {
 }
 
 function removeStandardDays() {
+  clearStorage()
+  clearRows()
+}
+
+function clearStorage() {
+  let storage = document.getElementById('nextMonthStorage')
+
+  while (storage.hasChildNodes()) {
+    storage.removeChild(storage.lastChild)
+  }
+}
+
+function clearRows() {
+
   let rows = document.getElementById('canvas').children
+
   for (let row of rows) {
     let columns = row.children
     
@@ -273,7 +296,6 @@ function calculateStandardDays(day){
 
     if(i < 4){
       dayElement.classList.add("darken-2")
-
     }
     if(i < 8 && i >= 4){
       dayElement.classList.add("darken-4")
@@ -331,9 +353,9 @@ function setCalendarListeners(currentMonth, calendar){
     if (nextMonth > 11) {
       nextMonth = 0
       currentYear++
-      makeCalendar(nextMonth, calendar)
+      makeCalendar(nextMonth, calendar, 'next')
     } else {
-      makeCalendar(nextMonth, calendar)
+      makeCalendar(nextMonth, calendar, 'next')
     }
     //for tracking purposes
     currentMonth = nextMonth
@@ -351,9 +373,9 @@ function setCalendarListeners(currentMonth, calendar){
     if (prevMonth < 0) {
       prevMonth = 11
       currentYear--
-      makeCalendar(prevMonth, calendar)
+      makeCalendar(prevMonth, calendar, 'prev')
     } else {
-      makeCalendar(prevMonth, calendar)
+      makeCalendar(prevMonth, calendar, 'prev')
     }
     //for tracking purposes
     currentMonth = prevMonth

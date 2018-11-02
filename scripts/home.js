@@ -280,6 +280,13 @@ function calculateStandardDays(day){
 function setGradient(difference, element) {
   if (element.dataset.ignoreTemp) return
 
+  element.className = "col s1"
+  if (element.dataset.flow === "true") {
+    element.classList.add('blue')
+    element.classList.add('lighten-2')
+    return
+  }
+
   if (difference >= 0.4 ) {
     element.classList.add('amber')
   } else {

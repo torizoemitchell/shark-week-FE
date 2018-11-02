@@ -297,7 +297,6 @@ function clearRows() {
 }
 
 function calculateStandardDays(day){
-  console.log("calculate standard days")
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let month = +day.id.split('-')[0]
   let date = +day.id.split('-')[1]
@@ -323,8 +322,6 @@ function calculateStandardDays(day){
       dayElement.id = `${month}-${fertileDay + modifier}`
     }
 
-    console.log("month: ", month)
-    console.log("day: ", fertileDay + modifier)
     dayElement.classList.add("amber")
     dayElement.setAttribute('data-standard', "true")
 

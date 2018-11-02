@@ -205,7 +205,6 @@ function setCalendarDataAttributes() {
 }
 
 function colorCalendar() {
-  console.log("color calendar")
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   let calculatedStandardDays = false;
@@ -226,7 +225,6 @@ function colorCalendar() {
 }
 
 function calculateStandardDays(day){
-
   console.log("calculate standard days")
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   let month = +day.id.split('-')[0]
@@ -239,7 +237,7 @@ function calculateStandardDays(day){
 
   for(let i = 0; i < 12; i++){
 
-    if (fertileDay > daysInMonths[month]){
+    if (fertileDay + modifier > daysInMonths[month]){
       futureToggle = true
       month = month < 11 ? month + 1 : 0
       fertileDay = 1
@@ -254,7 +252,7 @@ function calculateStandardDays(day){
     }
 
     console.log("month: ", month)
-    console.log("day: ", fertileDay)
+    console.log("day: ", fertileDay + modifier)
     dayElement.classList.add("amber")
     dayElement.setAttribute('data-ignoreTemp', "true")
 
@@ -277,10 +275,10 @@ function calculateStandardDays(day){
 }
 
 function setGradient(difference, element) {
-  if (element.dataset.ignoreTemp) return
 
   element.className = "col s1"
-  if (element.dataset.flow === "true") {
+
+  if (element.dataset.flow === "true" && !element.dataset.ignoretemp) {
     element.classList.add('blue')
     element.classList.add('lighten-2')
     return
@@ -392,12 +390,25 @@ function deleteEntry() {
         delete dateElement.dataset.temp
         delete dateElement.dataset.flow
         delete dateElement.dataset.id
-        dateElement.className = 'col s1'
+
+        deleteLocalEntry(response.data.id)
+        colorCalendar()
       })
       .catch((err) => {
         console.log(err)
       })
   })
+}
+
+function deleteLocalEntry(id) {
+  let local = JSON.parse(localStorage.getItem('User Entries'))
+  let deleteIndex = local.findIndex(entry => {
+      entry.id === id 
+    })
+  
+    local.splice(deleteIndex, 1)
+  localStorage.setItem('User Entries', JSON.stringify(local))
+  dateElement.className = 'col s1'
 }
 
 function put(postData, entryID) {
@@ -406,17 +417,25 @@ function put(postData, entryID) {
   .then((response) => {
     console.log("response:", response)
 
-    let inputDiv = document.getElementById("user-input")
-    let entries = JSON.parse(localStorage.getItem('User Entries'))
+    // uncomment to hid today's input form on edit of any day
+    //  inputDiv.hidden = true
+    // let inputDiv = document.getElementById("user-input")
+
     let newEntry = Object.assign({
       temp: postData.temp,
       flow: postData.flow,
       day: postData.date.getDate(),
       month: postData.date.getMonth()
     }, response.data)
-    inputDiv.hidden = true
-    entries.push(newEntry)
-    localStorage.setItem('User Entries', JSON.stringify(entries))
+    
+    let local = JSON.parse(localStorage.getItem('User Entries'))
+    let deleteIndex = local.findIndex(entry => {
+          entry.id === response.data.id 
+        })
+    
+    local.splice(deleteIndex, 1, newEntry)
+    localStorage.setItem('User Entries', JSON.stringify(local))
+        
     setCalendarDataAttributes()
     colorCalendar()
   })

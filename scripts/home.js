@@ -209,6 +209,8 @@ function colorCalendar() {
 
   let calculatedStandardDays = false;
 
+  removeStandardDays()
+
   entries.forEach(entry => {
     let day = document.getElementById(`${entry.month}-${entry.day}`)
     if (!day) return
@@ -222,6 +224,19 @@ function colorCalendar() {
     }
   })
 
+}
+
+function removeStandardDays() {
+  let rows = document.getElementById('canvas').children
+  for (let row of rows) {
+    let columns = row.children
+    
+    for (let column of columns) {
+      if (column.dataset.standard) {
+        column.className = 'col s1' 
+      }
+    }
+  }
 }
 
 function calculateStandardDays(day){
@@ -254,7 +269,7 @@ function calculateStandardDays(day){
     console.log("month: ", month)
     console.log("day: ", fertileDay + modifier)
     dayElement.classList.add("amber")
-    dayElement.setAttribute('data-ignoreTemp', "true")
+    dayElement.setAttribute('data-standard', "true")
 
     if(i < 4){
       dayElement.classList.add("darken-2")
@@ -278,7 +293,7 @@ function setGradient(difference, element) {
 
   element.className = "col s1"
 
-  if (element.dataset.flow === "true" && !element.dataset.ignoretemp) {
+  if (element.dataset.flow === "true" && !element.dataset.standard) {
     element.classList.add('blue')
     element.classList.add('lighten-2')
     return

@@ -275,7 +275,7 @@ function clearStandardDays() {
   clearRows()
 }
 
-function removeChildren(element) 
+function removeChildren(element) {
   while (element.hasChildNodes()) {
     element.removeChild(element.lastChild)
   }

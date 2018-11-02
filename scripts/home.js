@@ -238,7 +238,6 @@ function calculateStandardDays(day){
 
 
   for(let i = 0; i < 12; i++){
-    fertileDay = fertileDay + modifier
 
     if (fertileDay > daysInMonths[month]){
       futureToggle = true
@@ -247,11 +246,11 @@ function calculateStandardDays(day){
       modifier = 0
     }
 
-    let dayElement = document.getElementById(`${month}-${fertileDay}`)
+    let dayElement = document.getElementById(`${month}-${fertileDay + modifier}`)
 
     if (!dayElement){
       dayElement = document.createElement('div')
-      dayElement.id = `${month}-${fertileDay}`
+      dayElement.id = `${month}-${fertileDay + modifier}`
     }
 
     console.log("month: ", month)

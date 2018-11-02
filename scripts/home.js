@@ -153,6 +153,11 @@ function addHeader(calendar) {
 function addDates(currentMonth, row, r) {
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  // leap year
+  if (currentYear % 4 === 0) {
+    daysInMonths.splice(1, 1, 29)
+  }
+
   let firstDate = new Date(currentYear, currentMonth, 01)
   let numberOfBlanks = firstDate.getDay()
   let date = 1 + (r * 7)
@@ -212,7 +217,7 @@ function setCalendarDataAttributes() {
 
 function colorCalendar(caller) {
   if (caller !== 'prev' && caller !== 'next') {
-    removeStandardDays()
+    clearStandardDays()
   }
 
   let entries = JSON.parse(localStorage.getItem('User Entries'))
@@ -233,17 +238,46 @@ function colorCalendar(caller) {
   })
 
 }
+function setGradient(difference, element) {
+  // standard days are reset elsewhere
+  if (!element.dataset.standard) {
+    element.className = "col s1"
+  }
 
-function removeStandardDays() {
-  clearStorage()
+  if (element.dataset.flow === "true" && !element.dataset.standard) {
+    element.classList.add('blue')
+    element.classList.add('lighten-2')
+    return
+  }
+
+  if (difference >= 0.4 ) {
+    element.classList.add('amber')
+  } else {
+    element.classList.add('blue')
+    element.classList.add('lighten-4')
+  }
+  if (difference > 0.4 && difference <= 0.55) {
+    element.classList.add('darken-1')
+  }
+  if (difference > 0.55 && difference <= 0.65) {
+    element.classList.add('darken-2')
+  }
+  if (difference > 0.65 && difference <= 0.75) {
+    element.classList.add('darken-3')
+  }
+  if (difference > 0.75) {
+    element.classList.add('darken-4')
+  }
+}
+
+function clearStandardDays() {
+  removeChildren(document.getElementById('nextMonthStorage'))
   clearRows()
 }
 
-function clearStorage() {
-  let storage = document.getElementById('nextMonthStorage')
-
-  while (storage.hasChildNodes()) {
-    storage.removeChild(storage.lastChild)
+function removeChildren(element) 
+  while (element.hasChildNodes()) {
+    element.removeChild(element.lastChild)
   }
 }
 
@@ -311,36 +345,6 @@ function calculateStandardDays(day){
 
 }
 
-function setGradient(difference, element) {
-
-  element.className = "col s1"
-
-  if (element.dataset.flow === "true" && !element.dataset.standard) {
-    element.classList.add('blue')
-    element.classList.add('lighten-2')
-    return
-  }
-
-  if (difference >= 0.4 ) {
-    element.classList.add('amber')
-  } else {
-    element.classList.add('blue')
-    element.classList.add('lighten-4')
-  }
-  if (difference > 0.4 && difference <= 0.55) {
-    element.classList.add('darken-1')
-  }
-  if (difference > 0.55 && difference <= 0.65) {
-    element.classList.add('darken-2')
-  }
-  if (difference > 0.65 && difference <= 0.75) {
-    element.classList.add('darken-3')
-  }
-  if (difference > 0.75) {
-    element.classList.add('darken-4')
-  }
-}
-
 
 function setCalendarListeners(currentMonth, calendar){
   //next
@@ -348,18 +352,16 @@ function setCalendarListeners(currentMonth, calendar){
 
   nextMonthButton.addEventListener('click', (event) => {
     event.preventDefault()
-    clearCanvas(calendar)
+    removeChildren(calendar)
     let nextMonth = currentMonth + 1
-    if (nextMonth > 11) {
+
+     if (nextMonth > 11) {
       nextMonth = 0
       currentYear++
-      makeCalendar(nextMonth, calendar, 'next')
-    } else {
-      makeCalendar(nextMonth, calendar, 'next')
     }
+    makeCalendar(nextMonth, calendar, 'next')
     //for tracking purposes
     currentMonth = nextMonth
-
   })
 
   //previous
@@ -367,25 +369,17 @@ function setCalendarListeners(currentMonth, calendar){
 
   prevMonthButton.addEventListener('click', (event) => {
     event.preventDefault()
-    clearCanvas(calendar)
+    removeChildren(calendar)
     let prevMonth = currentMonth - 1
 
     if (prevMonth < 0) {
       prevMonth = 11
       currentYear--
-      makeCalendar(prevMonth, calendar, 'prev')
-    } else {
-      makeCalendar(prevMonth, calendar, 'prev')
     }
+    makeCalendar(prevMonth, calendar, 'prev')
     //for tracking purposes
     currentMonth = prevMonth
   })
-}
-
-function clearCanvas(canvas) {
-  while (canvas.hasChildNodes()) {
-    canvas.removeChild(canvas.lastChild)
-  }
 }
 
 function showCurrentMonth(month, year) {
@@ -395,19 +389,13 @@ function showCurrentMonth(month, year) {
 
 
 function setLogoutListeners() {
-  let link1 = document.getElementById('logout')
-  link1.addEventListener('click', (ev) => {
-    ev.preventDefault()
-    localStorage.clear()
-    window.location = `/index.html`
-  })
+  let logOutButtons = [document.getElementById('logout'), document.getElementById('mobileLogout')]
 
-  let link2 = document.getElementById('mobileLogout')
-  link2.addEventListener('click', (ev) => {
+  logOutButtons.forEach(button => button.addEventListener('click', (ev) => {
     ev.preventDefault()
     localStorage.clear()
     window.location = `/index.html`
-  })
+  }))
 
 }
 
@@ -456,10 +444,10 @@ function put(postData, entryID) {
     console.log("response:", response)
 
     // uncomment to hid today's input form on edit of any day
-    //  inputDiv.hidden = true
+    // inputDiv.hidden = true
     // let inputDiv = document.getElementById("user-input")
 
-    let newEntry = Object.assign({
+    let updatedEntry = Object.assign({
       temp: postData.temp,
       flow: postData.flow,
       day: postData.date.getDate(),
@@ -470,8 +458,8 @@ function put(postData, entryID) {
     let deleteIndex = local.findIndex(entry => {
           entry.id === response.data.id 
         })
+    local.splice(deleteIndex, 1, updatedEntry)
     
-    local.splice(deleteIndex, 1, newEntry)
     localStorage.setItem('User Entries', JSON.stringify(local))
         
     setCalendarDataAttributes()
@@ -488,17 +476,22 @@ function post(postData) {
   .then((response) => {
     console.log("response:", response)
 
-    let inputDiv = document.getElementById("user-input")
     let entries = JSON.parse(localStorage.getItem('User Entries'))
+    
     let newEntry = Object.assign({
       temp: postData.temp,
       flow: postData.flow,
       day: postData.date.getDate(),
       month: postData.date.getMonth()
     }, response.data)
+    
+    let inputDiv = document.getElementById("user-input")
     inputDiv.hidden = true
+    
     entries.push(newEntry)
+    
     localStorage.setItem('User Entries', JSON.stringify(entries))
+
     setCalendarDataAttributes()
     colorCalendar()
   })

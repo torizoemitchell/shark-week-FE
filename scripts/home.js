@@ -59,7 +59,7 @@ function setSubmitListener () {
     let toggle = document.getElementById('checkbox').checked
 
     let entryModalDate = document.getElementById('currentDate')
-    let emdDataId = entryModalDate.getAttribute('data-id')
+    let emdDataId = entryModalDate.dataset.id
     let dateElement = document.getElementById(emdDataId)
     let dateID = dateElement.dataset.id
 
@@ -91,7 +91,7 @@ function setEditListener () {
     let toggle = document.getElementById('editCheckbox').checked
 
     let entryModalDate = document.getElementById('editCurrentDate')
-    let emdDataId = entryModalDate.getAttribute('data-id')
+    let emdDataId = entryModalDate.dataset.id
     let dateElement = document.getElementById(emdDataId)
     let dateID = dateElement.dataset.id
 
@@ -390,6 +390,8 @@ function deleteEntry() {
         delete dateElement.dataset.temp
         delete dateElement.dataset.flow
         delete dateElement.dataset.id
+      
+        dateElement.className = 'col s1'
 
         deleteLocalEntry(response.data.id)
         colorCalendar()
@@ -406,9 +408,8 @@ function deleteLocalEntry(id) {
       entry.id === id 
     })
   
-    local.splice(deleteIndex, 1)
+  local.splice(deleteIndex, 1)
   localStorage.setItem('User Entries', JSON.stringify(local))
-  dateElement.className = 'col s1'
 }
 
 function put(postData, entryID) {

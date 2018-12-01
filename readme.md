@@ -8,9 +8,9 @@ provides an alternative to traditional hormonal birth-control and IUDs through u
 
 ## Installing
 
-git clone https://github.com/torizoemitchell/shark-week-FE.git
-cd shark-week-FE
-npm install
+* git clone https://github.com/torizoemitchell/shark-week-FE.git
+* cd shark-week-FE
+* npm install
 
 ## Built With
 

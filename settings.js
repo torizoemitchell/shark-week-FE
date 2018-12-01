@@ -16,14 +16,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   setNavButton.addEventListener('click', () => {
-    console.log(userCycle_Length.parse)
+    console.log('nav cycle:',userCycle_Length)
     setName.value = userName
     setEmail.value = userEmail
     setCycle_length.value = userCycle_Length
   })
 
   setHeadButton.addEventListener('click', () => {
-    console.log(userCycle_Length)
+    console.log('head cycle:',userCycle_Length)
     setName.value = userName
     setEmail.value = userEmail
     setCycle_length.value = userCycle_Length

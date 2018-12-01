@@ -59,7 +59,7 @@ function setSubmitListener () {
     let toggle = document.getElementById('checkbox').checked
 
     let entryModalDate = document.getElementById('currentDate')
-    let emdDataId = entryModalDate.getAttribute('data-id')
+    let emdDataId = entryModalDate.dataset.id
     let dateElement = document.getElementById(emdDataId)
     let dateID = dateElement.dataset.id
 
@@ -91,7 +91,7 @@ function setEditListener () {
     let toggle = document.getElementById('editCheckbox').checked
 
     let entryModalDate = document.getElementById('editCurrentDate')
-    let emdDataId = entryModalDate.getAttribute('data-id')
+    let emdDataId = entryModalDate.dataset.id
     let dateElement = document.getElementById(emdDataId)
     let dateID = dateElement.dataset.id
 
@@ -116,7 +116,7 @@ function setEditListener () {
 }
 
 
-function makeCalendar(currentMonth, calendar) {
+function makeCalendar(currentMonth, calendar, caller) {
 
   showCurrentMonth(currentMonth, currentYear)
   addHeader(calendar)
@@ -129,7 +129,7 @@ function makeCalendar(currentMonth, calendar) {
     calendar.appendChild(row)
   }
   setCalendarDataAttributes()
-  colorCalendar()
+  colorCalendar(caller)
 }
 
 function addHeader(calendar) {
@@ -153,6 +153,11 @@ function addHeader(calendar) {
 function addDates(currentMonth, row, r) {
 
   let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  // leap year
+  if (currentYear % 4 === 0) {
+    daysInMonths.splice(1, 1, 29)
+  }
+
   let firstDate = new Date(currentYear, currentMonth, 01)
   let numberOfBlanks = firstDate.getDay()
   let date = 1 + (r * 7)
@@ -178,12 +183,18 @@ function addDates(currentMonth, row, r) {
       }
     }
 
-    let col = document.getElementById(`${currentMonth}-${date}`)? document.getElementById(`${currentMonth}-${date}`) : document.createElement('div')
+    let col
 
+    if (document.getElementById(`${currentMonth}-${date}`)) {
+      col = document.getElementById(`${currentMonth}-${date}`).cloneNode()
+    } else {
+      col = document.createElement('div')
+      col.id = `${currentMonth}-${date}`
+    }
+    
     col.classList.add('col')
     col.classList.add('s1')
     col.innerText = date
-    col.id = `${currentMonth}-${date}`
     row.appendChild(col)
     date++
   }
@@ -204,8 +215,11 @@ function setCalendarDataAttributes() {
   })
 }
 
-function colorCalendar() {
-  console.log("color calendar")
+function colorCalendar(caller) {
+  if (caller !== 'prev' && caller !== 'next') {
+    clearStandardDays()
+  }
+
   let entries = JSON.parse(localStorage.getItem('User Entries'))
 
   let calculatedStandardDays = false;
@@ -217,68 +231,24 @@ function colorCalendar() {
     let tempDifference = day.dataset.temp - 98.60
     setGradient(tempDifference, day)
 
-    if (entry.flow && !calculatedStandardDays){
+    if (entry.flow && !calculatedStandardDays) {
       calculateStandardDays(day)
       calculatedStandardDays = true
     }
   })
 
 }
-
-function calculateStandardDays(day){
-
-  console.log("calculate standard days")
-  let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  let month = +day.id.split('-')[0]
-  let date = +day.id.split('-')[1]
-
-  let fertileDay = date + 7
-  let futureToggle = false
-  let modifier = 0
-
-
-  for(let i = 0; i < 12; i++){
-    fertileDay = fertileDay + modifier
-
-    if (fertileDay > daysInMonths[month]){
-      futureToggle = true
-      month = month < 11 ? month + 1 : 0
-      fertileDay = 1
-      modifier = 0
-    }
-
-    let dayElement = document.getElementById(`${month}-${fertileDay}`)
-
-    if (!dayElement){
-      dayElement = document.createElement('div')
-      dayElement.id = `${month}-${fertileDay}`
-    }
-
-    console.log("month: ", month)
-    console.log("day: ", fertileDay)
-    dayElement.classList.add("amber")
-    dayElement.setAttribute('data-ignoreTemp', "true")
-
-    if(i < 4){
-      dayElement.classList.add("darken-2")
-
-    }
-    if(i < 8 && i >= 4){
-      dayElement.classList.add("darken-4")
-    }
-    if(i >= 8){
-      dayElement.classList.add("darken-2")
-    }
-    if (futureToggle) {
-      document.getElementById('nextMonthStorage').appendChild(dayElement)
-    }
-    modifier++
+function setGradient(difference, element) {
+  // standard days are reset elsewhere
+  if (!element.dataset.standard) {
+    element.className = "col s1"
   }
 
-}
-
-function setGradient(difference, element) {
-  if (element.dataset.ignoreTemp) return
+  if (element.dataset.flow === "true" && !element.dataset.standard) {
+    element.classList.add('blue')
+    element.classList.add('lighten-2')
+    return
+  }
 
   if (difference >= 0.4 ) {
     element.classList.add('amber')
@@ -300,6 +270,78 @@ function setGradient(difference, element) {
   }
 }
 
+function clearStandardDays() {
+  removeChildren(document.getElementById('nextMonthStorage'))
+  clearRows()
+}
+
+function removeChildren(element) {
+  while (element.hasChildNodes()) {
+    element.removeChild(element.lastChild)
+  }
+}
+
+function clearRows() {
+
+  let rows = document.getElementById('canvas').children
+
+  for (let row of rows) {
+    let columns = row.children
+    
+    for (let column of columns) {
+      if (column.dataset.standard) {
+        column.className = 'col s1' 
+      }
+    }
+  }
+}
+
+function calculateStandardDays(day){
+  let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  let month = +day.id.split('-')[0]
+  let date = +day.id.split('-')[1]
+
+  let fertileDay = date + 7
+  let futureToggle = false
+  let modifier = 0
+
+
+  for(let i = 0; i < 12; i++){
+
+    if (fertileDay + modifier > daysInMonths[month]){
+      futureToggle = true
+      month = month < 11 ? month + 1 : 0
+      fertileDay = 1
+      modifier = 0
+    }
+
+    let dayElement = document.getElementById(`${month}-${fertileDay + modifier}`)
+
+    if (!dayElement){
+      dayElement = document.createElement('div')
+      dayElement.id = `${month}-${fertileDay + modifier}`
+    }
+
+    dayElement.classList.add("amber")
+    dayElement.setAttribute('data-standard', "true")
+
+    if(i < 4){
+      dayElement.classList.add("darken-2")
+    }
+    if(i < 8 && i >= 4){
+      dayElement.classList.add("darken-4")
+    }
+    if(i >= 8){
+      dayElement.classList.add("darken-2")
+    }
+    if (futureToggle) {
+      document.getElementById('nextMonthStorage').appendChild(dayElement)
+    }
+    modifier++
+  }
+
+}
+
 
 function setCalendarListeners(currentMonth, calendar){
   //next
@@ -307,18 +349,16 @@ function setCalendarListeners(currentMonth, calendar){
 
   nextMonthButton.addEventListener('click', (event) => {
     event.preventDefault()
-    clearCanvas(calendar)
+    removeChildren(calendar)
     let nextMonth = currentMonth + 1
-    if (nextMonth > 11) {
+
+     if (nextMonth > 11) {
       nextMonth = 0
       currentYear++
-      makeCalendar(nextMonth, calendar)
-    } else {
-      makeCalendar(nextMonth, calendar)
     }
+    makeCalendar(nextMonth, calendar, 'next')
     //for tracking purposes
     currentMonth = nextMonth
-
   })
 
   //previous
@@ -326,25 +366,17 @@ function setCalendarListeners(currentMonth, calendar){
 
   prevMonthButton.addEventListener('click', (event) => {
     event.preventDefault()
-    clearCanvas(calendar)
+    removeChildren(calendar)
     let prevMonth = currentMonth - 1
 
     if (prevMonth < 0) {
       prevMonth = 11
       currentYear--
-      makeCalendar(prevMonth, calendar)
-    } else {
-      makeCalendar(prevMonth, calendar)
     }
+    makeCalendar(prevMonth, calendar, 'prev')
     //for tracking purposes
     currentMonth = prevMonth
   })
-}
-
-function clearCanvas(canvas) {
-  while (canvas.hasChildNodes()) {
-    canvas.removeChild(canvas.lastChild)
-  }
 }
 
 function showCurrentMonth(month, year) {
@@ -354,19 +386,13 @@ function showCurrentMonth(month, year) {
 
 
 function setLogoutListeners() {
-  let link1 = document.getElementById('logout')
-  link1.addEventListener('click', (ev) => {
-    ev.preventDefault()
-    localStorage.clear()
-    window.location = `/index.html`
-  })
+  let logOutButtons = [document.getElementById('logout'), document.getElementById('mobileLogout')]
 
-  let link2 = document.getElementById('mobileLogout')
-  link2.addEventListener('click', (ev) => {
+  logOutButtons.forEach(button => button.addEventListener('click', (ev) => {
     ev.preventDefault()
     localStorage.clear()
     window.location = `/index.html`
-  })
+  }))
 
 }
 
@@ -386,12 +412,26 @@ function deleteEntry() {
         delete dateElement.dataset.temp
         delete dateElement.dataset.flow
         delete dateElement.dataset.id
+      
         dateElement.className = 'col s1'
+
+        deleteLocalEntry(response.data.id)
+        colorCalendar()
       })
       .catch((err) => {
         console.log(err)
       })
   })
+}
+
+function deleteLocalEntry(id) {
+  let local = JSON.parse(localStorage.getItem('User Entries'))
+  let deleteIndex = local.findIndex(entry => {
+      entry.id === id 
+    })
+  
+  local.splice(deleteIndex, 1)
+  localStorage.setItem('User Entries', JSON.stringify(local))
 }
 
 function put(postData, entryID) {
@@ -400,17 +440,25 @@ function put(postData, entryID) {
   .then((response) => {
     console.log("response:", response)
 
-    let inputDiv = document.getElementById("user-input")
-    let entries = JSON.parse(localStorage.getItem('User Entries'))
-    let newEntry = Object.assign({
+    // uncomment to hid today's input form on edit of any day
+    // inputDiv.hidden = true
+    // let inputDiv = document.getElementById("user-input")
+
+    let updatedEntry = Object.assign({
       temp: postData.temp,
       flow: postData.flow,
       day: postData.date.getDate(),
       month: postData.date.getMonth()
     }, response.data)
-    inputDiv.hidden = true
-    entries.push(newEntry)
-    localStorage.setItem('User Entries', JSON.stringify(entries))
+    
+    let local = JSON.parse(localStorage.getItem('User Entries'))
+    let deleteIndex = local.findIndex(entry => {
+          entry.id === response.data.id 
+        })
+    local.splice(deleteIndex, 1, updatedEntry)
+    
+    localStorage.setItem('User Entries', JSON.stringify(local))
+        
     setCalendarDataAttributes()
     colorCalendar()
   })
@@ -425,17 +473,22 @@ function post(postData) {
   .then((response) => {
     console.log("response:", response)
 
-    let inputDiv = document.getElementById("user-input")
     let entries = JSON.parse(localStorage.getItem('User Entries'))
+    
     let newEntry = Object.assign({
       temp: postData.temp,
       flow: postData.flow,
       day: postData.date.getDate(),
       month: postData.date.getMonth()
     }, response.data)
+    
+    let inputDiv = document.getElementById("user-input")
     inputDiv.hidden = true
+    
     entries.push(newEntry)
+    
     localStorage.setItem('User Entries', JSON.stringify(entries))
+
     setCalendarDataAttributes()
     colorCalendar()
   })

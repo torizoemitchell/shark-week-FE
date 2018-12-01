@@ -1,6 +1,6 @@
 # Tempo
 
-provides an alternative to traditional hormonal birth-control and IUDs through utilizing daily temperature recordings in correlation with menstration tracking. Tempo helps women track their ovulation history and well as predict their future cycles
+Provides an alternative to traditional hormonal birth-control and IUDs through utilizing daily temperature recordings in correlation with menstration tracking. Tempo helps women track their ovulation history and well as predict their future cycles
 
 ## Demo 11/02/2018
 
@@ -8,9 +8,11 @@ provides an alternative to traditional hormonal birth-control and IUDs through u
 
 ## Installing
 
-* git clone https://github.com/torizoemitchell/shark-week-FE.git
-* cd shark-week-FE
-* npm install
+```
+git clone https://github.com/torizoemitchell/shark-week-FE.git
+cd shark-week-FE
+npm install
+```
 
 ## Built With
 

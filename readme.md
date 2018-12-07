@@ -22,9 +22,9 @@ npm install
 
 ## Authors
 
-* Tori Mitchell
-* Nicholas Griffen
-* Shawn Milne
-* Riley Burns
+* [Tori Mitchell](https://github.com/torizoemitchell)
+* [Nicholas Griffen](https://github.com/nicholasgriffen)
+* [Shawn Milne](https://github.com/sawaymilno)
+* [Riley Burns](https://github.com/rileyburns345)
 
 
